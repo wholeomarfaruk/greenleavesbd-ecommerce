@@ -78,9 +78,9 @@
         <nav class="navbar navbar-expand-lg bg-primary-color  border-top">
 
             <div class="container">
-                <a class="navbar-brand" href="https://seldomfashion.com">
-                    <img src="{{ asset('frontend/img/logo-transparent.png') }}" alt="" style="width:50px; ">
-                    Seldom Fashion</a>
+                <a class="navbar-brand" href="/">
+                    <img src="{{ asset('frontend/img/logo.png') }}" alt="" style="width:50px; ">
+                    </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
                     aria-label="Toggle navigation">

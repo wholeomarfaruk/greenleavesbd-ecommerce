@@ -3,8 +3,8 @@
 
 
 :root{
-  --primary-color: #525754;
-  --primary-accent-color: #02a53b;
+  --primary-color: #02a53b;
+  --primary-accent-color: #fff;
 }
 /* Apply font rules */
 body {

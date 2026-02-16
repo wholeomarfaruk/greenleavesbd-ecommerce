@@ -42,7 +42,7 @@
                 <div class="section-menu-left">
                     <div class="box-logo">
                         <a href="{{ route('admin.index') }}" id="site-logo-inner">
-                            <h4>YoungStar Life</h4>
+                            <h4>{{ config('app.name', 'Green Leaves') }}</h4>
                             {{-- <img class="" id="logo_header" alt="" src="{{asset('admin-resource/images/logo/logo.png')}}" > --}}
                         </a>
                         <div class="button-show-hide">

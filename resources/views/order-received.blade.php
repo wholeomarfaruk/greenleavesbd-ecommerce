@@ -12,7 +12,7 @@
             <div class="col-md-8 order-info-box">
                 {{-- <div class="order-logo mt-4">
                     <a class="footer-brand text-decoration-none text-success fw-bolder fs-4" href="#">
-                        YOUNGSTAR Life</a>
+                        Green Leaves</a>
                 </div> --}}
                 <div class="order-text-site mt-5">
                     <h6 class="thanks">অসংখ্য ধন্যবাদ!</h6>
@@ -102,7 +102,7 @@
 @push('scripts')
 
     <script>
-       
+
         dataLayer = window.dataLayer || [];
         dataLayer.push({
             event: 'purchase',

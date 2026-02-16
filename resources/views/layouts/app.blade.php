@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>YOUNGSTAR Life</title>
+    <title>{{ config('app.name', 'Green Leaves') }}</title>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ asset('frontend/img/youngstar logo-circle.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('frontend/img/logo.png') }}">
     <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
         integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
@@ -71,13 +71,13 @@
         <div class="container">
             <div class="topbar d-flex justify-content-center">
                 <ul class="quick-contact list-inline d-flex justify-content-end gap-3 py-2 mb-0 align-items-center ">
-                    <li class="list-inline fw-bold fs-6 "><a href="https://wa.me/8801613046803" target="_blank"
+                    <li class="list-inline fw-bold fs-6 "><a href="https://wa.me/8801893620392" target="_blank"
                             class="text-decoration-none text-primary-color text-primary-hover"><i
                                 class="fa-brands fa-whatsapp"></i> WhatsApp </a></li>
 
-                    <li class="list-inline fw-bold fs-6"><a href="tel:+8801613-046803"
+                    <li class="list-inline fw-bold fs-6"><a href="tel:+8801893-620392"
                             class="text-decoration-none text-primary-color text-primary-hover"> <i
-                                class="fa-solid fa-phone"></i>Call Us +88 01613-046803</a></li>
+                                class="fa-solid fa-phone"></i>Call Us +88 01893-620392</a></li>
                 </ul>
             </div>
         </div>
@@ -86,10 +86,10 @@
 
             <div class="container">
                 <a class="navbar-brand" href="/">
-                    <img src="{{ asset('frontend/img/youngstar logo-circle.png') }}" alt=""
-                        style="width:50px; ">
+                    <img src="{{ asset('frontend/img/logo.png') }}" alt=""
+                        style="width:80px; ">
                     {{-- <i class="fa-regular fa-star me-1"> --}}
-                    </i>YOUNGSTAR Life</a>
+                    </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -118,7 +118,7 @@
                             <a class="nav-link {{ Request::is('shop') ? 'active' : '' }}" href="/shop">All
                                 Products</a>
                         </li>
-                        <li class="nav-item fs-5">
+                        {{-- <li class="nav-item fs-5">
                             <a class="nav-link {{ Request::is('category/combo-offer') ? 'active' : '' }}"
                                 href="/category/combo-offer">Combo Offer</a>
                         </li>
@@ -133,7 +133,7 @@
                         <li class="nav-item fs-5">
                             <a class="nav-link {{ Request::is('category/kids') ? 'active' : '' }}"
                                 href="/category/kids">Kids</a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             </div>
@@ -145,10 +145,9 @@
     <main id="Content-body" class="py-3">
         <section>
             <div class="container p-0">
-                <a href="https://wa.me/8801613046803?text=আমি%20বড়%20সাইজের%20জন্য%20কাস্টোমাইজ%20করতে%20চাচ্ছি"
+                <a href="https://wa.me/8801893620392"
                     style="text-decoration: none;">
-                    <h3 class="text-center" style="color: #2c742c; font-weight: bold;"> কাস্টোমাইজ বড় সাইজের জন্য
-                        ওয়াটসএপ এ মেসেজ
+                    <h3 class="text-center" style="color: #2c742c; font-weight: bold;">ওয়াটসএপ এ মেসেজ
                         করুন</h3>
                 </a>
             </div>
@@ -163,13 +162,13 @@
             </h5>
             <div class="topbar d-flex justify-content-center">
                 <ul class="quick-contact list-inline d-flex justify-content-end gap-3 py-2 mb-0 align-items-center ">
-                    <li class="list-inline fw-bold fs-6 "><a href="https://wa.me/8801613046803" target="_blank"
+                    <li class="list-inline fw-bold fs-6 "><a href="https://wa.me/8801893620392" target="_blank"
                             class="text-decoration-none text-primary-color text-primary-hover"><i
                                 class="fa-brands fa-whatsapp"></i> WhatsApp </a></li>
 
-                    <li class="list-inline fw-bold fs-6"><a href="tel:+8801613-046803"
+                    <li class="list-inline fw-bold fs-6"><a href="tel:+8801893620392"
                             class="text-decoration-none text-primary-color text-primary-hover"> <i
-                                class="fa-solid fa-phone"></i> Call Us +88 01613-046803</a></li>
+                                class="fa-solid fa-phone"></i> Call Us +88 01893 620392</a></li>
                 </ul>
             </div>
         </div>
@@ -215,11 +214,11 @@
 
 
 
-            <a href="https://youngstar.life/category/joggers-pant" class="text-center text-decoration-none">
+            {{-- <a href="https://youngstar.life/category/joggers-pant" class="text-center text-decoration-none">
                 <dotlottie-wc src="https://lottie.host/8a7eb623-e79f-481e-b63f-555486c2e6a7/0Hmst73iRT.lottie"
                     style="width: 50px;height: 50px" autoplay loop></dotlottie-wc>
                 <span class="fw-semibold text-primary-color fs-6 text ms-1 text-center">New Joggers</span>
-            </a>
+            </a> --}}
         </div>
     </div>
     <!-- Jquery -->
