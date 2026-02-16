@@ -617,7 +617,7 @@
 
         })
     </script>
-    <script>
+    {{-- <script>
         $(window).on('beforeunload', function() {
             var name = $("input[name='name']").val();
             var phone = $("input[name='phone']").val();
@@ -651,5 +651,5 @@
             // event.preventDefault();
 
         })
-    </script>
+    </script> --}}
 @endpush
