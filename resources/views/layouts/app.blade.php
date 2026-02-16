@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'Green Leaves') }}</title>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ asset('frontend/img/logo.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('frontend/img/logo-transparent.png') }}">
     <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
         integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
@@ -209,17 +209,13 @@
 
             }
         </style>
-        <div class="new-arrival " id="dragBtn">
-
-
-
-
-            {{-- <a href="https://youngstar.life/category/joggers-pant" class="text-center text-decoration-none">
+        {{-- <div class="new-arrival " id="dragBtn">
+            <a href="https://youngstar.life/category/joggers-pant" class="text-center text-decoration-none">
                 <dotlottie-wc src="https://lottie.host/8a7eb623-e79f-481e-b63f-555486c2e6a7/0Hmst73iRT.lottie"
                     style="width: 50px;height: 50px" autoplay loop></dotlottie-wc>
                 <span class="fw-semibold text-primary-color fs-6 text ms-1 text-center">New Joggers</span>
-            </a> --}}
-        </div>
+            </a>
+        </div> --}}
     </div>
     <!-- Jquery -->
     <script src="{{ asset('frontend/library/jquery/jquery-3.7.1.min.js') }}"></script>

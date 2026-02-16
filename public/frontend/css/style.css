@@ -161,7 +161,7 @@ body {
 
 .navbar .navbar-brand,
 .navbar .navbar-nav .nav-item .nav-link{
-  color: #fff;
+  color: #e2e2e2;
 }
 .navbar .navbar-nav .nav-item .nav-link:hover{
   color: var(--primary-accent-color);
