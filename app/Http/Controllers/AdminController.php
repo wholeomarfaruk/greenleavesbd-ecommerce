@@ -215,14 +215,14 @@ class AdminController extends Controller
                 $product->categories()->attach($request->categories);
 
             }
-            if ($request->has('segments')) {
-                $product->segments()->attach($request->segments);
-            }
+            // if ($request->has('segments')) {
+            //     $product->segments()->attach($request->segments);
+            // }
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
 
         }
-        return redirect()->route('admin.products')->with('status', 'Product Added Successfully');
+        return redirect()->route('admin.products')->with('toast',['status' => 'success', 'message' => 'Product Updated Successfully']);
     }
 
     public function generateProductThumbnailImage($image, $imageName)
@@ -230,6 +230,12 @@ class AdminController extends Controller
         $thumbnail_path = public_path('storage/images/products/thumbnails/');
         $image_path = public_path('storage/images/products/');
 
+        if(!file_exists($thumbnail_path)) {
+            mkdir($thumbnail_path, 0777, true);
+        }
+        if(!file_exists($image_path)) {
+            mkdir($image_path, 0777, true);
+        }
         $image = Image::read($image->path());
         $image->save($image_path . $imageName, 70);
         $image->save($thumbnail_path . $imageName, 70);
@@ -1095,6 +1101,12 @@ class AdminController extends Controller
     {
         $thumbnail_path = public_path('storage/images/slides/thumbnails/');
         $image_path = public_path('storage/images/slides/');
+          if(!file_exists($thumbnail_path)) {
+            mkdir($thumbnail_path, 0777, true);
+        }
+        if(!file_exists($image_path)) {
+            mkdir($image_path, 0777, true);
+        }
         $image = Image::read($image->path());
         $image->cover(602, 602, 'top');
         $image->resize(602, 602, function ($constraint) {

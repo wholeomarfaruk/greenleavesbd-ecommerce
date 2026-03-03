@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'Green Leaves') }}</title>
+    <title>Geen Leaves BD</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('frontend/img/logo-transparent.png') }}">
     <!-- font awesome -->

@@ -58,9 +58,9 @@
                                 placeholder="Enter price" name="price" tabindex="0" value="{{ old('price') }}"
                                 aria-required="true" required="required" autofocus>
                             @error('price')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                             @enderror
                         </fieldset>
                         <fieldset class="name">
@@ -69,9 +69,9 @@
                                 placeholder="Enter price" name="discount_price" tabindex="0" value="{{ old('discount_price') }}"
                                 aria-required="true" required="required" autofocus>
                             @error('discount_price')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                             @enderror
                         </fieldset>
                     </div>
@@ -84,9 +84,9 @@
                                 placeholder="Enter quantity" name="quantity" tabindex="0" value="{{ old('quantity') }}"
                                 aria-required="true" required="required">
                             @error('quantity')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                             @enderror
                         </fieldset>
                     </div>
@@ -101,9 +101,9 @@
                                 </select>
                             </div>
                             @error('stock_status')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                             @enderror
                         </fieldset>
                         <fieldset class="name">
@@ -113,9 +113,9 @@
                                 name="sku" tabindex="0" value="{{ old('sku') }}" aria-required="true"
                                 required="required">
                             @error('sku')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                             @enderror
                         </fieldset>
                     </div>
@@ -160,15 +160,19 @@
                                     <span class="body-text">Drop your images here or select <span class="tf-color">click
                                             to
                                             browse</span></span>
-                                    <input type="file" id="myFile" name="image" accept="image/*">
-                                </label>
-                            </div>
-                        </div>
-                        @error('image')
-                            <span class="invalid-feedback" role="alert">
+                                    <input type="file" id="myFile"  name="image" accept="image/*">
+                                     @error('image')
+                            <script>
+                                console.log("{{ $message }}");
+                            </script>
+                            <span class="invalid-feedback d-block" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
+                                </label>
+                            </div>
+                        </div>
+
                     </fieldset>
                     <fieldset>
                         <div class="body-title">Upload images <span class="tf-color-1">*</span>
@@ -189,8 +193,8 @@
                                 </label>
                             </div>
                         </div>
-                        @error('image')
-                            <span class="invalid-feedback" role="alert">
+                        @error('images.*')
+                            <span class="invalid-feedback d-block" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
@@ -214,8 +218,8 @@
                                 </label>
                             </div>
                         </div>
-                        @error('image')
-                            <span class="invalid-feedback" role="alert">
+                        @error('sizechart')
+                           <span class="invalid-feedback d-block" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
@@ -230,9 +234,9 @@
                                 </select>
                             </div>
                             @error('featured')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                             @enderror
                         </fieldset>
                     </div>

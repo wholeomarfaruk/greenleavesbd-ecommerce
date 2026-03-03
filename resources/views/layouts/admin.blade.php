@@ -766,6 +766,28 @@
 
     {{-- pending orders notifications in sweetalert2 --}}
     <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+    </script>
+    @if (session('toast'))
+        <script>
+            let toastMsg = @json(session('toast'));
+            Toast.fire({
+                icon: toastMsg.status,
+                title: toastMsg.message,
+            })
+        </script>
+    @endif
+    <script>
         function viewNotifications($notiy) {
             $.ajax({
                 url: "{{ route('admin.orders.pending.notifications') }}",
@@ -783,17 +805,7 @@
             }).then(response => response.json())
             .then(data => {
                 if (data.length > 0) {
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 3000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                    })
+
 
                     Toast.fire({
                         icon: 'warning',
