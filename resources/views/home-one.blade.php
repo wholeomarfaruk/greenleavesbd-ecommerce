@@ -121,7 +121,7 @@
 <div class="py-2 py-md-4">
         <div class="container">
             <div class="row">
-                <img src="/storage/images/banner/green-leaves-banner.png" class="w-100" alt="Offer Banner" />
+                <img src="/storage/images/banner/green-leaves-banner.png" class="w-100 rounded" alt="Offer Banner" />
             </div>
         </div>
     </div>
