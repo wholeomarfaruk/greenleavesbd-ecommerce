@@ -118,7 +118,13 @@
             }
         }
     </style>
-
+<div class="py-2 py-md-4">
+        <div class="container">
+            <div class="row">
+                <img src="/images/banner/green-leaves-banner.png" class="w-100" alt="Offer Banner" />
+            </div>
+        </div>
+    </div>
     <section class="sec-style-1 my-3">
         <div class="container">
             <div class="sec-header">
@@ -135,7 +141,7 @@
             </div>
             <div class="sec-body">
                 <div class="sec-grid-box">
-                    @foreach ($products->take(6) as $product)
+                    @foreach ($products->take(8) as $product)
                         <div class="sec-grid-item p-card-1">
 
                             <div class="p-img-box">
@@ -199,7 +205,7 @@
                     </div>
                     <div class="sec-body">
                         <div class="sec-grid-box">
-                            @foreach ($category?->products->take(6) as $product)
+                            @foreach ($category?->products->take(8) as $product)
                                 <div class="sec-grid-item p-card-1">
 
                                     <div class="p-img-box">

@@ -125,7 +125,7 @@
     </header>
     <aside id="sidebar"></aside>
     <main id="Content-body" class="py-3">
-        <section>
+        {{-- <section>
             <div class="container p-0">
                 <a href="https://wa.me/8801893620392"
                     style="text-decoration: none;">
@@ -133,7 +133,7 @@
                         করুন</h3>
                 </a>
             </div>
-        </section>
+        </section> --}}
         @yield('content')
 
 
