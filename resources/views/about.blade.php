@@ -109,7 +109,7 @@
    <div class="col-lg-6">
     <div class="about_us_box">
      <div class="box_img">
-      <img class="w-100" src="{{ asset('frontend/img/about/mision.jpg') }}" alt="Green Leaves">
+      <img class="w-100" src="{{ asset('frontend/img/about/mision.jpeg') }}" alt="Green Leaves">
      </div>
      <div class="box_text">
       <h1>Mission</h1>
