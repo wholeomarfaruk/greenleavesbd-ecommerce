@@ -116,4 +116,25 @@ class HomeController extends Controller
             ->paginate(12);
         return view('category-products', compact('category', 'products'));
     }
+
+    public function about()
+    {
+        return view('about');
+    }
+    public function contact()
+    {
+        return view('contact');
+    }
+    public function saveContact(Request $request)
+    {
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'message' => 'required|string',
+        ]);
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Your message has been sent successfully!');
+    }
 }

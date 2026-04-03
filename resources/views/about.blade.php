@@ -1,87 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Green Leaves</title>
-    <!--icon links-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
-    <!--css links-->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/media.css">
-</head>
-<body>
-  <!--header start-->
-<header>
-  <!--Conatiner-1 Start-->
- <div class="container-fluid px-0">
-  <div class="header_top">
-  <p>আমাদের যে কোন পণ্য অর্ডার করতে কল বা WhatsApp করুন: +8801893-620392</p>
-  </div>
- </div>
-    <!--Conatiner-2 Start-->
- <div class="container-fluid bg-white px-0">
-  <nav class="navbar navbar-expand-lg">
-    <div class="container">
-      <!--logo-->
-      <a class="navbar-brand logo" href="#">
-      <img src="image/logo/logo.png" class="w-100" alt="Green Leave">
-      </a>
-    <!--Search bar-->
-      <div class="justify-content-center collapse navbar-collapse nav_search" id="navbarSupportedContent">
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
-      <!--Icon-->
-      <div class="icon_box">
-          <a href="#"><i class="profile_icon fa-regular fa-circle-user"></i></a>
-          <a href="#"><i class="cart_icon fa-solid fa-cart-arrow-down"></i></a>
-      </div>
-    </div>
-</nav>
- </div>
-  <!--Conatiner-3 Start-->
- <div class="container-fluid px-0">
-  <nav class="navbar navbar-expand-lg nav">
-  <div class="container">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav_c" aria-controls="nav_c" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse menu" id="nav_c">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Kitchen Item</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Cleaning Items</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Home Decor</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Combo Offer</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Accessories</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Baby Care</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
- </div>
-</header>
-  <!--header end-->
+@extends('layouts.app')
+
+@section('content')
   <!--banner start-->
-<section class="about_banner">
+<section class="about_banner" style="  background-image: linear-gradient(rgba(2, 44, 111, 0.6), rgba(2, 44, 111, 0.6)),
+                    url('{{ asset('frontend/img/banner/about_banner.jpg') }}');">
   <div class="container">
     <div class="row justify-content-center">
      <div class="col-lg-6">
@@ -93,8 +15,6 @@
   </div>
 </section>
   <!--banner end-->
-
-
   <!--about company start-->
 <section class="about_company cm_padding">
  <div class="container">
@@ -104,16 +24,16 @@
       <div class="company_img">
       </div>
       <div class="company_icon">
-        <span><img class="w-100" src="image/about/recruit.gif" alt="Green Leaves"></span><p>100+ Products</p>
+        <span><img class="w-100" src="{{ asset('frontend/img/about/recruit.gif') }}" alt="Green Leaves"></span><p>100+ Products</p>
       </div>
       <div class="company_icon">
-        <span><img class="w-100" src="image/about/earth.gif" alt="Green Leaves"></span><p>50+ Dealer</p>
+        <span><img class="w-100" src="{{ asset('frontend/img/about/earth.gif') }}" alt="Green Leaves"></span><p>50+ Dealer</p>
       </div>
       <div class="company_icon">
-        <span><img class="w-100" src="image/about/human.gif" alt="Green Leaves"></span><p>20000+ Customer</p>
+        <span><img class="w-100" src="{{ asset('frontend/img/about/human.gif') }}" alt="Green Leaves"></span><p>20000+ Customer</p>
       </div>
       <div class="company_icon">
-        <span><img class="w-100" src="image/about/worker.gif" alt="Green Leaves"></span><p>10+ Year Experience</p>
+        <span><img class="w-100" src="{{ asset('frontend/img/about/worker.gif') }}" alt="Green Leaves"></span><p>10+ Year Experience</p>
       </div>
     </div>
    </div>
@@ -143,7 +63,7 @@
    </div>
    <div class="col-lg-3 col-md-6">
     <div class="management_member">
-     <img class="w-100" src="image/about/kamal_hossain.jpeg" alt="Green Leaves">
+     <img class="w-100" src="{{ asset('frontend/img/about/kamal_hossain.jpeg') }}" alt="Green Leaves">
      <h2>MD. KAMAL HOSSEN</h2>
      <p>MANAGING DIRECTOR</p>
      <p>kamalhos95@gmail.com</p>
@@ -151,7 +71,7 @@
    </div>
    <div class="col-lg-3 col-md-6">
     <div class="management_member">
-     <img class="w-100" src="image/about/monira_islam.png" alt="Green Leaves">
+     <img class="w-100" src="{{ asset('frontend/img/about/monira_islam.png') }}" alt="Green Leaves">
      <h2>MONIRA ISLAM BINTY</h2>
      <p>DIRECTOR</p>
      <p>bintyislam@gmail.com</p>
@@ -159,7 +79,7 @@
    </div>
    <div class="col-lg-3 col-md-6">
     <div class="management_member">
-     <img class="w-100" src="image/about/shariful_islam.jpeg" alt="Green Leaves">
+     <img class="w-100" src="{{ asset('frontend/img/about/shariful_islam.jpeg') }}" alt="Green Leaves">
      <h2>MD SHARIFUL ISLAM</h2>
      <p>AREA MANAGER</p>
      <p>sharifu6350@gmail.com</p>
@@ -167,7 +87,7 @@
    </div>
    <div class="col-lg-3 col-md-6">
     <div class="management_member">
-     <img class="w-100" src="image/about/mehedi_hasan.jpeg" alt="Green Leaves">
+     <img class="w-100" src="{{ asset('frontend/img/about/mehedi_hasan.jpeg') }}" alt="Green Leaves">
      <h2>MEHEDI HASAN</h2>
      <p>AREA MANAGER</p>
      <p>mehedihasan@gmail.com</p>
@@ -189,7 +109,7 @@
    <div class="col-lg-6">
     <div class="about_us_box">
      <div class="box_img">
-      <img class="w-100" src="image/about/mision.jpeg" alt="Green Leaves">
+      <img class="w-100" src="{{ asset('frontend/img/about/mission.jpeg') }}" alt="Green Leaves">
      </div>
      <div class="box_text">
       <h1>Mission</h1>
@@ -200,7 +120,7 @@
    <div class="col-lg-6">
     <div class="about_us_box">
      <div class="box_img">
-      <img class="w-100" src="image/about/vision.jpeg" alt="Green Leaves">
+      <img class="w-100" src="{{ asset('frontend/img/about/vision.jpeg') }}" alt="Green Leaves">
      </div>
      <div class="box_text">
       <h1>Vision</h1>
@@ -235,77 +155,4 @@
   </div>
 </section>
 <!--Newsletter end-->
-  <!--footer top start-->
-  <footer class="footer_top">
-   <div class="container">
-    <div class="row">
-     <div class="col-lg-4 col-md-12 col-sm-12">
-      <div class="footer_item">
-        <img class="w-100" src="image/logo/logo.png" alt="Green Leaves">
-       <h2>Green Leaves Bangladesh</h2>
-       <p>Green Leaves Bangladesh একটি জনপ্রিয় ব্র্যান্ড,
-        যেখানে বিভিন্ন ধরনের খাদ্য পণ্য পাওয়া যায়।
-        এখানে সাশ্রয়ী মূল্যে ভালো মানের পণ্য সরবরাহ করা হয়।</p>
-        <i class="fa-brands fa-square-facebook" style="color: rgb(24, 119, 242);"></i>
-       <i class="fa-brands fa-youtube" style="color: rgb(255, 0, 0);"></i>
-       <i class="fa-brands fa-instagram"></i>
-       <i class="fa-brands fa-whatsapp" style="color: rgb(37, 211, 102);"></i>
-      </div>
-     </div>
-     <div class="col-lg-2 col-md-4 col-sm-4">
-      <div class="footer_item footer_item1">
-       <h2>গুরুত্বপূর্ণ লিংক</h2>
-        <ul>
-          <li><a href="#">হোম </a></li>
-          <li><a href="#">আমাদের সম্পর্কে</a></li>
-          <li><a href="#">যোগাযোগ</a></li>
-          <li><a href="#">শপ</a></li>
-        </ul>
-      </div>
-     </div>
-     <div class="col-lg-3 col-md-4 col-sm-4">
-      <div class="footer_item footer_item1">
-       <h2>গুরুত্বপূর্ণ লিংক</h2>
-        <ul>
-          <li><a href="#">হোম</a></li>
-          <li><a href="#">আমাদের সম্পর্কে</a></li>
-          <li><a href="#">যোগাযোগ</a></li>
-          <li><a href="#">শপ</a></li>
-        </ul>
-      </div>
-     </div>
-     <div class="col-lg-3 col-md-4 col-sm-4">
-      <div class="footer_item footer_item1">
-       <h2>Contact Us</h2>
-       <p><span><i class="fa-solid fa-phone"></i></span> +8801893-620392</p>
-       <p><span><i class="fa-solid fa-envelope"></i></span>info@sitename.com</p>
-       <p><span><i class="fa-solid fa-location-dot"></i></span>Dhaka, Bangladesh</p>
-
-      </div>
-     </div>
-    </div>
-    <div class="row">
-     <div class="col-lg-12">
-      <div class="footer_img">
-        <img src="image/footer/foot.jpg" class="w-100" alt="Green Leaves">
-      </div>
-     </div>
-    </div>
-   </div>
-  </footer>
-  <!--footer top end-->
-  <!--footer start-->
-  <footer class="footer">
-    <div class="container">
-     <div class="footer_bottom">
-     <p>© 2025. All right Reserved Developed By <a  target="_blank" href="https://www.facebook.com/alimuzahid.dev/">Ali Muzahid</a></p>
-     <p class="footer_p2"></p>
-     </div>
-    </div>
-  </footer>
-  <!--footer end-->
-<!--js-->
-<script src="js/script.js"></script>
-<script src="js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+@endsection

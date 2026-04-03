@@ -92,7 +92,7 @@
                     <div class="collapse navbar-collapse menu" id="nav_c">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="#">Home</a>
+                                <a class="nav-link" aria-current="page" href="/">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Kitchen Item</a>
@@ -144,10 +144,10 @@
                     <div class="footer_item footer_item1">
                         <h2>গুরুত্বপূর্ণ লিংক</h2>
                         <ul>
-                            <li><a href="#">হোম </a></li>
-                            <li><a href="#">আমাদের সম্পর্কে</a></li>
-                            <li><a href="#">যোগাযোগ</a></li>
-                            <li><a href="#">শপ</a></li>
+                            <li><a href="/">হোম </a></li>
+                            <li><a href="{{ route('about') }}">আমাদের সম্পর্কে</a></li>
+                            <li><a href="{{ route('contact') }}">যোগাযোগ</a></li>
+                            <li><a href="{{ route('shop') }}">শপ</a></li>
                         </ul>
                     </div>
                 </div>
@@ -155,10 +155,10 @@
                     <div class="footer_item footer_item1">
                         <h2>গুরুত্বপূর্ণ লিংক</h2>
                         <ul>
-                            <li><a href="#">হোম</a></li>
-                            <li><a href="#">আমাদের সম্পর্কে</a></li>
-                            <li><a href="#">যোগাযোগ</a></li>
-                            <li><a href="#">শপ</a></li>
+                            <li><a href="/">হোম</a></li>
+                            <li><a href="{{ route('about') }}">আমাদের সম্পর্কে</a></li>
+                            <li><a href="{{ route('contact') }}">যোগাযোগ</a></li>
+                            <li><a href="{{ route('shop') }}">শপ</a></li>
                         </ul>
                     </div>
                 </div>

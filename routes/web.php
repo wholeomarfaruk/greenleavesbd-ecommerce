@@ -35,6 +35,9 @@ Auth::routes();
 
 // });
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/about-us', [HomeController::class, 'about'])->name('about');
+Route::get('/contact-us', [HomeController::class, 'contact'])->name('contact');
+Route::post('/contact-us', [HomeController::class, 'saveContact'])->name('contact.submit');
 Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
 
 // Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
