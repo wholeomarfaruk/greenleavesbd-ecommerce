@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Geen Leaves BD</title>
+    <title>Green Leaves BD</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('frontend/img/logo-transparent.png') }}">
     <!-- font awesome -->
@@ -32,13 +32,14 @@
 
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css?v=1.0.1') }}">
 
+    <link rel="stylesheet" href="{{ asset('frontend/media.css?v=1.0.0') }}">
+
 
 
     @stack('styles')
 
     @if (app()->environment('production'))
         <!-- Google Tag Manager -->
-
     @endif
 
     <!-- End Google Tag Manager -->
@@ -49,112 +50,150 @@
     @if (app()->environment('production'))
         <!-- Google Tag Manager (noscript) -->
     @endif
-    <header id="header-area" class="shadow bg-white">
-        <div class="container">
-            <div class="topbar d-flex justify-content-center">
-                <ul class="quick-contact list-inline d-flex justify-content-end gap-3 py-2 mb-0 align-items-center ">
-                    <li class="list-inline fw-bold fs-6 "><a href="https://wa.me/8801893620392" target="_blank"
-                            class="text-decoration-none text-primary-color text-primary-hover"><i
-                                class="fa-brands fa-whatsapp"></i> WhatsApp </a></li>
-
-                    <li class="list-inline fw-bold fs-6"><a href="tel:+8801893-620392"
-                            class="text-decoration-none text-primary-color text-primary-hover"> <i
-                                class="fa-solid fa-phone"></i>Call Us +88 01893-620392</a></li>
-                </ul>
+    <!--header start-->
+    <header>
+        <!--Conatiner-1 Start-->
+        <div class="container-fluid px-0">
+            <div class="header_top">
+                <p>আমাদের যে কোন পণ্য অর্ডার করতে কল বা WhatsApp করুন: +8801893-620392</p>
             </div>
         </div>
-
-        <nav class="navbar navbar-expand-lg bg-primary-color  border-top">
-
-            <div class="container">
-                <a class="navbar-brand" href="/">
-                    <img src="{{ asset('frontend/img/logo.png') }}" alt=""
-                        style="width:80px; ">
-                    {{-- <i class="fa-regular fa-star me-1"> --}}
+        <!--Conatiner-2 Start-->
+        <div class="container-fluid bg-white px-0">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container">
+                    <!--logo-->
+                    <a class="navbar-brand logo" href="#">
+                        <img src="{{ asset('frontend/img/logo/logo.png') }}" class="w-100" alt="Green Leave">
                     </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-                    <ul class="navbar-nav ">
-                        <li class="nav-item fs-5">
-                            <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" aria-current="page"
-                                href="/">Home</a>
-                        </li>
-
-
-                        {{-- <li class="nav-item dropdown fs-5">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                Collections
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item fs-5" href="#">Summer Collection</a></li>
-                                <li><a class="dropdown-item fs-5" href="#">Premium Collection</a></li>
-                                <li><a class="dropdown-item fs-5" href="#">Party Waear</a></li>
-                            </ul>
-                        </li> --}}
-                        <li class="nav-item fs-5">
-                            <a class="nav-link {{ Request::is('shop') ? 'active' : '' }}" href="/shop">All
-                                Products</a>
-                        </li>
-                        {{-- <li class="nav-item fs-5">
-                            <a class="nav-link {{ Request::is('category/combo-offer') ? 'active' : '' }}"
-                                href="/category/combo-offer">Combo Offer</a>
-                        </li>
-                        <li class="nav-item fs-5">
-                            <a class="nav-link {{ Request::is('category/joggers-pant') ? 'active' : '' }}"
-                                href="/category/joggers-pant">Joggers</a>
-                        </li>
-                        <li class="nav-item fs-5">
-                            <a class="nav-link {{ Request::is('category/cargo-pants') ? 'active' : '' }}"
-                                href="/category/cargo-pants">Cargo</a>
-                        </li>
-                        <li class="nav-item fs-5">
-                            <a class="nav-link {{ Request::is('category/kids') ? 'active' : '' }}"
-                                href="/category/kids">Kids</a>
-                        </li> --}}
-                    </ul>
+                    <!--Search bar-->
+                    <div class="justify-content-center collapse navbar-collapse nav_search" id="navbarSupportedContent">
+                        <form class="d-flex" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
+                    <!--Icon-->
+                    <div class="icon_box">
+                        <a href="#"><i class="profile_icon fa-regular fa-circle-user"></i></a>
+                        <a href="#"><i class="cart_icon fa-solid fa-cart-arrow-down"></i></a>
+                    </div>
                 </div>
-            </div>
-
-
-        </nav>
+            </nav>
+        </div>
+        <!--Conatiner-3 Start-->
+        <div class="container-fluid px-0">
+            <nav class="navbar navbar-expand-lg nav">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav_c"
+                        aria-controls="nav_c" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse menu" id="nav_c">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Kitchen Item</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Cleaning Items</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Home Decor</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Combo Offer</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Accessories</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Baby Care</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
     </header>
+    <!--header end-->
     <aside id="sidebar"></aside>
     <main id="Content-body" class="py-3">
-        {{-- <section>
-            <div class="container p-0">
-                <a href="https://wa.me/8801893620392"
-                    style="text-decoration: none;">
-                    <h3 class="text-center" style="color: #2c742c; font-weight: bold;">ওয়াটসএপ এ মেসেজ
-                        করুন</h3>
-                </a>
-            </div>
-        </section> --}}
         @yield('content')
-
-
     </main>
-    <footer id="footer-area" class="border-top">
-        <div class="container py-3">
-            <h5 class="text-center fw-semibold text-primary-color"> যেকোনো তথ্যের জন্য আমাদের মেসেজ করুন অথবা কল করুন।
-            </h5>
-            <div class="topbar d-flex justify-content-center">
-                <ul class="quick-contact list-inline d-flex justify-content-end gap-3 py-2 mb-0 align-items-center ">
-                    <li class="list-inline fw-bold fs-6 "><a href="https://wa.me/8801893620392" target="_blank"
-                            class="text-decoration-none text-primary-color text-primary-hover"><i
-                                class="fa-brands fa-whatsapp"></i> WhatsApp </a></li>
+    <!--footer top start-->
+    <footer class="footer_top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="footer_item">
+                        <img class="w-100" src="{{ asset('frontend/img/logo/logo.png') }}" alt="Green Leaves">
+                        <h2>Green Leaves Bangladesh</h2>
+                        <p>Green Leaves Bangladesh একটি জনপ্রিয় ব্র্যান্ড,
+                            যেখানে বিভিন্ন ধরনের খাদ্য পণ্য পাওয়া যায়।
+                            এখানে সাশ্রয়ী মূল্যে ভালো মানের পণ্য সরবরাহ করা হয়।</p>
+                        <i class="fa-brands fa-square-facebook" style="color: rgb(24, 119, 242);"></i>
+                        <i class="fa-brands fa-youtube" style="color: rgb(255, 0, 0);"></i>
+                        <i class="fa-brands fa-instagram"></i>
+                        <i class="fa-brands fa-whatsapp" style="color: rgb(37, 211, 102);"></i>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-4">
+                    <div class="footer_item footer_item1">
+                        <h2>গুরুত্বপূর্ণ লিংক</h2>
+                        <ul>
+                            <li><a href="#">হোম </a></li>
+                            <li><a href="#">আমাদের সম্পর্কে</a></li>
+                            <li><a href="#">যোগাযোগ</a></li>
+                            <li><a href="#">শপ</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-4">
+                    <div class="footer_item footer_item1">
+                        <h2>গুরুত্বপূর্ণ লিংক</h2>
+                        <ul>
+                            <li><a href="#">হোম</a></li>
+                            <li><a href="#">আমাদের সম্পর্কে</a></li>
+                            <li><a href="#">যোগাযোগ</a></li>
+                            <li><a href="#">শপ</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-4">
+                    <div class="footer_item footer_item1">
+                        <h2>Contact Us</h2>
+                        <p><span><i class="fa-solid fa-phone"></i></span> +8801893-620392</p>
+                        <p><span><i class="fa-solid fa-envelope"></i></span>info@sitename.com</p>
+                        <p><span><i class="fa-solid fa-location-dot"></i></span>Dhaka, Bangladesh</p>
 
-                    <li class="list-inline fw-bold fs-6"><a href="tel:+8801893620392"
-                            class="text-decoration-none text-primary-color text-primary-hover"> <i
-                                class="fa-solid fa-phone"></i> Call Us +88 01893 620392</a></li>
-                </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer_img">
+                        <img src="{{ asset('frontend/img/footer/foot.jpg') }}" class="w-100" alt="Green Leaves">
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
+    <!--footer top end-->
+    <!--footer start-->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer_bottom">
+                <p>© 2025. All right Reserved Developed By <a target="_blank"
+                        href="https://www.facebook.com/alimuzahid.dev/">Ali Muzahid</a></p>
+                <p class="footer_p2"></p>
+            </div>
+        </div>
+    </footer>
+    <!--footer end-->
+
     <div>
         <style>
             .new-arrival {
@@ -244,21 +283,7 @@
 
 
     @stack('scripts')
-    <!--Start of Tawk.to Script-->
-    {{-- <script type="text/javascript">
-        var Tawk_API = Tawk_API || {},
-            Tawk_LoadStart = new Date();
-        (function() {
-            var s1 = document.createElement("script"),
-                s0 = document.getElementsByTagName("script")[0];
-            s1.async = true;
-            s1.src = 'https://embed.tawk.to/690c8bfbc7778b19591c13ad/1j9cg5jom';
-            s1.charset = 'UTF-8';
-            s1.setAttribute('crossorigin', '*');
-            s0.parentNode.insertBefore(s1, s0);
-        })();
-    </script> --}}
-    <!--End of Tawk.to Script-->
+
 </body>
 
 </html>

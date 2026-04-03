@@ -22,7 +22,7 @@ class HomeController extends Controller
         $slides = Slide::all();
         $analytics = Analytic::all();
         $categories = Category::all();
-        return view('home-one', compact('products', 'deliveryAreas', 'slides', 'analytics', 'categories'));
+        return view('home-two', compact('products', 'deliveryAreas', 'slides', 'analytics', 'categories'));
     }
     public function shop()
     {

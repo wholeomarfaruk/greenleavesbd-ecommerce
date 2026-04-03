@@ -24,7 +24,9 @@ use Spatie\LaravelPackageTools\Package;
             return '<h3>✅ Application optimized successfully!</h3>';
         });
 Route::post('/cart/add/json', [CartController::class, 'add_json_to_cart'])->name('cart.add.json')->withoutMiddleware('auth');
-
+Route::get('/test',function(){
+    return view('test');
+});
 Auth::routes();
 
 // Route::get('/', function () {

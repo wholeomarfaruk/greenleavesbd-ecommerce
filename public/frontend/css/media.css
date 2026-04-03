@@ -1,0 +1,561 @@
+/* Extra small devices (portrait phones, less than 576px)*/
+@media (max-width: 575.98px) {
+        /* logo */
+.logo {
+    width: 110px;
+}
+.icon_box a {
+    font-size: 20px;
+}
+.profile_icon {
+    margin-right: 8px;
+}
+/* header top */
+.header_top p {
+    font-size: 12px;
+}  
+  /*menu  */
+.menu ul li {
+    margin: 0;
+}
+/* banner */
+.hero-slide {
+    height: 200px;
+}
+.cm_padding {
+    padding: 50px 0 55px;
+}
+/* category */
+.category_head h1 {
+    font-size: 26px;
+}
+/* wholesale */
+.wholesale_program h1 {
+    font-size: 32px;
+}
+/* wholesale */
+.cm_padding {
+    padding: 50px 0 55px;
+}
+.wholesale {
+    height: 420px;
+}
+.wholesale_program {
+    margin-top: 65px;
+}
+.wholesale_program h1 {
+    font-size: 34px;
+}
+.wholesale_program p {
+    margin: 15px 0 20px;
+}
+/* service */
+.service {
+    padding: 30px 0 35px;
+}
+.service_item {
+    margin-top: 25px;
+    text-align: center;
+}
+.service_icon i {
+    font-size: 36px;
+}
+/* footer_top start */
+.footer_top {
+    padding: 50px 0 40px;
+}
+.footer_item{
+    text-align: center;
+}
+.footer_item h2{
+    margin-top: 15px;
+}
+.footer_item p{
+    margin-bottom: 10px;
+    width: auto;
+}
+/* About_banner start */
+.about_banner {
+    height: 230px;
+}
+.about_banner h1{
+    font-size: 34px;
+}
+/* about company */
+.company_img {
+    margin-right: 30px;
+}
+.company_text h1 {
+    font-size: 32px;
+    line-height: 50px;
+}
+.company_icon {
+    margin-right: 15px;
+}
+.company_text p {
+    font-size: 15px;
+}
+/* our management */
+.management_head h1 {
+    font-size: 28px;
+    margin: 0 0 10px;
+}
+.management_member{
+    margin: 20px 0 0;
+    padding: 0 0 25px;
+}
+.management_member img {
+    height: auto;
+}
+/* about us start */
+.about_us_head h1 {
+    font-size: 24px;
+}
+.about_us_head h1::before {
+    width: 55px;
+    margin-right: 5px;
+}
+.about_us_head h1::after {
+    width: 55px;
+    margin-left: 5px;
+}
+.about_us_box {
+    margin: 20px 0 0;
+}
+.box_text {
+    padding: 13px 12px;
+}
+.box_img img {
+    height: 224px;
+}
+.box_text h1 {
+    font-size: 30px;
+}
+.box_text p {
+    font-size: 15px;
+}
+
+
+/* Newsletter start */
+.news_letter_text h1 {
+    font-size: 34px;
+    line-height: 45px;
+}
+.news_letter_form {
+    margin-top: 20px;
+}
+.input-group {
+    height: 55px;
+}
+/* contact_us  */
+.contact_us_head{
+    margin-bottom: 10px;
+}
+.contact_us_head h1{
+    font-size: 16px;
+}
+.contact_us_head h1::before {
+    width: 30px;
+    margin-right: 5px;
+}
+.contact_us_head h1::after {
+    width: 30px;
+    margin-left: 5px;
+}
+.contact_us_head h2 {
+    font-size: 32px;
+}
+.contact_us2_box form label {
+    margin: 10px 0 0;
+}
+.contact_us_box iframe {
+    margin-top: 15px;
+    width: 100%;
+}
+/* Contact Details Start */
+.contact_details_item{
+    text-align: center;
+}
+.contact_details_icon{
+    display: block;
+    margin-bottom: 10px;
+}
+            
+ }
+
+/* Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) and (max-width: 767.98px) { 
+        /* logo */
+.logo {
+    width: 130px;
+}
+.icon_box a {
+    font-size: 22px;
+}
+.profile_icon {
+    margin-right: 11px;
+}
+/* header top */
+.header_top p {
+    font-size: 13px;
+}  
+  /*menu  */
+.menu ul li {
+    margin: 0;
+}
+/* banner */
+
+.hero-slide {
+    height: 250px;
+}
+/* category */
+.category_head h1 {
+    font-size: 28px;
+}
+/* wholesale */
+.cm_padding {
+    padding: 55px 0 60px;
+}
+.wholesale {
+    height: 390px;
+}
+.wholesale_program {
+    margin-top: 80px;
+}
+.wholesale_program h1 {
+    font-size: 36px;
+}
+.wholesale_program p {
+    margin: 20px 0 25px;
+}
+      
+/* service */
+.service {
+    padding: 50px 0 55px;
+}
+.service_item {
+    margin-top: 35px;
+    text-align: center;
+}
+.service_icon i {
+    font-size: 46px;
+}
+/* footer_top start */
+.footer_top {
+    padding: 50px 0 40px;
+}
+.footer_item {
+    text-align: center;
+}
+.footer_item h2{
+    margin-top: 15px;
+}
+.footer_item p{
+    margin-bottom: 10px;
+    width: auto;
+}
+/* About_banner start */
+.about_banner {
+    height: 270px;
+}
+.about_banner h1{
+    font-size: 40px;
+}
+/* about company */
+.company_img {
+    margin-right: 50px;
+}
+.company_text h1 {
+    font-size: 44px;
+    line-height: 60px;
+}
+.company_icon {
+    margin-right: 30px;
+}
+/* our management */
+.management_head h1 {
+    font-size: 34px;
+    margin: 0 0 10px;
+}
+.management_member{
+    margin: 20px 0 0;
+    padding: 0 0 25px;
+}
+.management_member img {
+    height: auto;
+}
+/* about us start */
+.about_us_box {
+    margin: 20px 10px;
+}
+.box_text h1 {
+    font-size: 32px;
+}
+.box_text p {
+    font-size: 16px;
+}
+.box_img img {
+    height: 335px;
+}
+/* Newsletter start */
+.news_letter_text h1 {
+    font-size: 36px;
+    line-height: 50px;
+}
+.news_letter_form {
+    margin-top: 20px;
+}
+/* contact_us  */
+.contact_us_head{
+    margin-bottom: 10px;
+}
+.contact_us_head h2 {
+    font-size: 40px;
+}
+.contact_us2_box form label {
+    margin: 10px 0 0;
+}
+.contact_us_box iframe {
+    width: 100%;
+}
+/* Contact Details Start */
+.contact_details_item{
+    text-align: center;
+}
+.contact_details_icon{
+    display: block;
+    margin-bottom: 10px;
+}
+  
+}
+
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) and (max-width: 991.98px) { 
+    /* logo */
+.icon_box a {
+    font-size: 24px;
+}
+.profile_icon {
+    margin-right: 11px;
+}
+/* header top */
+.header_top p {
+    font-size: 15px;
+}    
+  /*menu  */
+.menu ul li {
+    margin: 0;
+}
+/* banner */
+.hero-slide {
+    height: 360px;
+}
+/* wholesale */
+.wholesale {
+    height: 400px;
+}
+.wholesale_program {
+    margin-top: 95px;
+}
+.wholesale_program h1 {
+    font-size: 42px;
+}
+.wholesale_program p {
+    margin: 20px 0 25px;
+}
+.cm_padding {
+    padding: 55px 0 65px;
+}
+/* service */
+.service {
+    padding: 50px 0 55px;
+}
+.service_item {
+    margin-top: 35px;
+}
+/* footer_top start */
+.footer_top {
+    padding: 50px 0 40px;
+}
+.footer_item{
+    text-align: center;
+}
+.footer_item h2{
+    margin-top: 20px;
+}
+.footer_item p{
+    margin-bottom: 10px;
+}
+/* footer start */
+.footer_item p{
+    width: auto;
+}
+/* About_banner start */
+.about_banner {
+    height: 290px;
+}
+.about_banner h1{
+    font-size: 42px;
+}
+/* about company */
+.company_img {
+    margin-right: 70px;
+}
+.company_text h1 {
+    font-size: 44px;
+    line-height: 60px;
+}
+.company_icon {
+    margin-right: 100px;
+}
+/* our management */
+.management_member{
+    margin: 20px 0 0;
+}
+.management_member img {
+    height: 340px;
+}
+/* about us start */
+.about_us_box {
+    margin: 20px 10px;
+}
+
+/* contact_us  */
+.contact_us_head h2 {
+    font-size: 48px;
+}
+.contact_us2_box form label {
+    margin: 10px 0 0;
+}
+.contact_us_box iframe {
+    width: 100%;
+}
+/* Contact Details Start */
+.contact_details_item{
+    text-align: center;
+}
+.contact_details_icon{
+    display: block;
+    margin-bottom: 10px;
+}
+    
+}
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) and (max-width: 1199.98px) {
+/* logo */
+.logo {
+    width: 135px;
+}   
+/* header top */
+.header_top p {
+    font-size: 16px;
+}
+/* menu */
+.menu ul li{
+    margin: 0 10px;
+}
+.menu ul li a {
+    font-size: 16px;
+}
+/* banner */
+.hero-slide {
+    height: 490px;
+}
+/* service */
+.service_item {
+    text-align: center;
+}
+/* wholesale */
+.wholesale_program {
+    margin-top: 115px;
+}
+.wholesale_program p {
+    margin: 25px 0 30px;
+}
+/* footer start */
+.footer_item p{
+    width: 230px;
+}
+/* about company */
+.company_text h1 {
+    font-size: 44px;
+    line-height: 60px;
+}
+.company_icon {
+    display: block;
+}
+/* our management */
+.management_member img {
+    height: 270px;
+}
+.management_member h2 {
+    font-size: 18px;
+}
+.management_member p {
+    font-size: 15px;
+}
+/* about_us start */
+.box_img img {
+    height: 335px;
+}
+/* contact_us  */
+.contact_us_head h2 {
+    font-size: 48px;
+}
+.contact_us2_box form label {
+    margin: 10px 0 0;
+}
+/* Contact Details Start */
+.contact_details_icon{
+    display: block;
+    margin-bottom: 10px;
+}
+ }
+
+/* Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+    /* menu */
+.menu ul li {
+    margin: 0 20px;
+}
+/* banner */
+.hero-slide {
+    height: 600px;
+}
+/* wholesale */
+.wholesale_program p {
+    margin: 30px 0 35px;
+}
+/* service */
+.service_icon i {
+    font-size: 30px;
+}
+.service_text {
+    margin-left: 2px;
+}
+/* about company */
+.company_text h1 {
+    font-size: 48px;
+}
+/* our management */
+.management_member img {
+    height: 310px;
+}
+.management_member h2 {
+    font-size: 22px;
+}
+.management_member p {
+    font-size: 16px;
+}
+/* about_us start */
+.box_img img {
+    height: 395px;
+}
+    
+ }
+
+/* Extra extra large devices (large desktops, 1400px and up)*/
+@media (min-width: 1400px) { 
+   
+}
+
