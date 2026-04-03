@@ -30,9 +30,9 @@
         }
     </style>
 
-    <link rel="stylesheet" href="{{ asset('frontend/css/style.css?v=1.0.1') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/style.css?v=1.0.2') }}">
 
-    <link rel="stylesheet" href="{{ asset('frontend/media.css?v=1.0.0') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/media.css?v=1.0.2') }}">
 
 
 
