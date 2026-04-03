@@ -21,7 +21,7 @@
   <div class="row">
    <div class="col-lg-5">
     <div class="company_box">
-      <div class="company_img">
+      <div class="company_img" style="background-image: url('{{ asset('frontend/img/about/Kamal-Hossain-CEO-of-Green-Leaves-BD.jpeg') }}');">
       </div>
       <div class="company_icon">
         <span><img class="w-100" src="{{ asset('frontend/img/about/recruit.gif') }}" alt="Green Leaves"></span><p>100+ Products</p>
@@ -109,7 +109,7 @@
    <div class="col-lg-6">
     <div class="about_us_box">
      <div class="box_img">
-      <img class="w-100" src="{{ asset('frontend/img/about/mission.jpeg') }}" alt="Green Leaves">
+      <img class="w-100" src="{{ asset('frontend/img/about/mision.jpg') }}" alt="Green Leaves">
      </div>
      <div class="box_text">
       <h1>Mission</h1>
