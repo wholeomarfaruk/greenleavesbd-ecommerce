@@ -75,8 +75,10 @@
                     </div>
                     <!--Icon-->
                     <div class="icon_box">
-                        <a href="#"><i class="profile_icon fa-regular fa-circle-user"></i></a>
-                        <a href="#"><i class="cart_icon fa-solid fa-cart-arrow-down"></i></a>
+                       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav_c"
+                        aria-controls="nav_c" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
                     </div>
                 </div>
             </nav>
@@ -85,10 +87,10 @@
         <div class="container-fluid px-0">
             <nav class="navbar navbar-expand-lg nav">
                 <div class="container">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav_c"
+                    {{-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav_c"
                         aria-controls="nav_c" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
-                    </button>
+                    </button> --}}
                     <div class="collapse navbar-collapse menu" id="nav_c">
                         <ul class="navbar-nav">
                             <li class="nav-item">
