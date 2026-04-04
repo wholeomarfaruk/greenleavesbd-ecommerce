@@ -68,17 +68,18 @@
                     </a>
                     <!--Search bar-->
                     <div class="justify-content-center collapse navbar-collapse nav_search" id="navbarSupportedContent">
-                        <form class="d-flex" role="search" action="{{route('search')}}" >
-                            <input class="form-control me-2" type="search" placeholder="Search" name="search" aria-label="Search" value="{{ request('search') }}" />
+                        <form class="d-flex" role="search" action="{{ route('search') }}">
+                            <input class="form-control me-2" type="search" placeholder="Search" name="search"
+                                aria-label="Search" value="{{ request('search') }}" />
                             <button class="btn btn-outline-success" type="submit">Search</button>
                         </form>
                     </div>
                     <!--Icon-->
                     <div class="icon_box">
-                       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav_c"
-                        aria-controls="nav_c" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav_c"
+                            aria-controls="nav_c" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
                     </div>
                 </div>
             </nav>
@@ -96,19 +97,23 @@
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="/">Home</a>
                             </li>
-                              
+
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('shop') }}">Shop</a>
                             </li>
                             @php
-                                $category_menus = \App\Models\Category::where('is_show_in_menu', true)->where('is_active', true)->orderBy('display_order')->get();
+                                $category_menus = \App\Models\Category::where('is_show_in_menu', true)
+                                    ->where('is_active', true)
+                                    ->orderBy('display_order')
+                                    ->get();
                             @endphp
                             @foreach ($category_menus as $menu)
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('category.show', $menu->slug) }}">{{ $menu->name }}</a>
+                                    <a class="nav-link"
+                                        href="{{ route('category.show', $menu->slug) }}">{{ $menu->name }}</a>
                                 </li>
                             @endforeach
-                           
+
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('contact') }}">Contact Us</a>
                             </li>
@@ -137,8 +142,13 @@
                         <p>Green Leaves Bangladesh একটি জনপ্রিয় ব্র্যান্ড,
                             যেখানে বিভিন্ন ধরনের খাদ্য পণ্য পাওয়া যায়।
                             এখানে সাশ্রয়ী মূল্যে ভালো মানের পণ্য সরবরাহ করা হয়।</p>
-                        <i class="fa-brands fa-square-facebook" style="color: rgb(24, 119, 242);"></i>
-                        <i class="fa-brands fa-youtube" style="color: rgb(255, 0, 0);"></i>
+                        <a href="https://www.facebook.com/greenleavesbd0" class="social_icon" style="text-decoration:none;" target="_blank">
+
+                            <i class="fa-brands fa-square-facebook" style="color: rgb(24, 119, 242);"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@greenleaves172" class="social_icon" style="text-decoration:none;" target="_blank">
+                            <i class="fa-brands fa-youtube" style="color: rgb(255, 0, 0);"></i>
+                        </a>
                         <i class="fa-brands fa-instagram"></i>
                         <i class="fa-brands fa-whatsapp" style="color: rgb(37, 211, 102);"></i>
                     </div>
