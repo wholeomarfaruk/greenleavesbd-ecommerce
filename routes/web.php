@@ -47,6 +47,8 @@ Route::post('/record-session', [SessionRecordController::class, 'store']);
 
 
 Route::get('/shop', [HomeController::class, 'shop'])->name('shop');
+Route::get('/search', [HomeController::class, 'search'])->name('search');
+
 Route::get('/category/{slug}', [HomeController::class, 'categoryShow'])->name('category.show');
 Route::get('/product/{slug}', [HomeController::class, 'productShow'])->name('product.show');
 

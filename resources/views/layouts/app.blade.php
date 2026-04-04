@@ -63,13 +63,13 @@
             <nav class="navbar navbar-expand-lg">
                 <div class="container">
                     <!--logo-->
-                    <a class="navbar-brand logo" href="#">
+                    <a class="navbar-brand logo" href="/">
                         <img src="{{ asset('frontend/img/logo/logo.png') }}" class="w-100" alt="Green Leave">
                     </a>
                     <!--Search bar-->
                     <div class="justify-content-center collapse navbar-collapse nav_search" id="navbarSupportedContent">
-                        <form class="d-flex" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                        <form class="d-flex" role="search" action="{{route('search')}}" >
+                            <input class="form-control me-2" type="search" placeholder="Search" name="search" aria-label="Search" value="{{ request('search') }}" />
                             <button class="btn btn-outline-success" type="submit">Search</button>
                         </form>
                     </div>

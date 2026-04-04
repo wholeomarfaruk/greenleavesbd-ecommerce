@@ -27,14 +27,26 @@ class HomeController extends Controller
     public function shop()
     {
 
-        $products = Products::where('status', 1)->orderByDesc('featured') // featured first
+        $products = products::where('status', 1)->orderByDesc('featured') // featured first
             ->orderByDesc('created_at')               // newest first
             ->paginate(12);
-        $deliveryAreas = delivery_areas::all();
-        $slides = Slide::all();
-        $analytics = Analytic::all();
-        $categories = Category::all();
-        return view('shop', compact('products', 'deliveryAreas', 'slides', 'analytics', 'categories'));
+ 
+        return view('shop', compact('products'));
+    }
+    public function search(Request $request)
+    {
+
+        $products = products::query()
+         ->when($request->search, function ($query, $search) {
+            $query->where('name', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%")
+                  ->orWhere('price', 'like', "%{$search}%");
+        })
+        
+        ->where('status', 1)->orderByDesc('featured') // featured first
+            ->orderByDesc('created_at')               // newest first
+            ->paginate(12);
+        return view('search', compact('products'));
     }
 
     public function ProductOne(Request $request)
