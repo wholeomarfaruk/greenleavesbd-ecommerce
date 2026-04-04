@@ -96,23 +96,24 @@
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="/">Home</a>
                             </li>
+                              
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Kitchen Item</a>
+                                <a class="nav-link" href="{{ route('shop') }}">Shop</a>
+                            </li>
+                            @php
+                                $category_menus = \App\Models\Category::where('is_show_in_menu', true)->where('is_active', true)->orderBy('display_order')->get();
+                            @endphp
+                            @foreach ($category_menus as $menu)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('category.show', $menu->slug) }}">{{ $menu->name }}</a>
+                                </li>
+                            @endforeach
+                           
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('contact') }}">Contact Us</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Cleaning Items</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Home Decor</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Combo Offer</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Accessories</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Baby Care</a>
+                                <a class="nav-link" href="{{ route('about') }}">About Us</a>
                             </li>
                         </ul>
                     </div>

@@ -1,8 +1,7 @@
 @extends('layouts.admin')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-treeview/1.2.0/bootstrap-treeview.min.css"
-    integrity="sha512-A81ejcgve91dAWmCGseS60zjrAdohm7PTcAjjiDWtw3Tcj91PNMa1gJ/ImrhG+DbT5V+JQ5r26KT5+kgdVTb5w=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 @push('styles')
+
     <style>
         .table-striped th:nth-child(2),
         .table-striped td:nth-child(2) {
@@ -95,8 +94,9 @@
                                 name="products[]" required multiple data-live-search="true" title="Choose products...">
                                 @foreach ($products as $product)
                                     <option value="{{ $product->id }}">
-                                        {{ $product->id . ' - ' . $product->name . ' - ' . $product->discount_price ?? $product->price }}
-                                        Tk</option>
+                                        {{ $product->id . ' - ' . $product->name . ' - ' . ($product->discount_price ?? $product->price) }}
+                                        Tk
+                                    </option>
                                 @endforeach
                             </select>
 
@@ -190,8 +190,6 @@
             </div>
         </div>
     </div>
-
-
     <!-- content area end -->
 @endsection
 @push('scripts')

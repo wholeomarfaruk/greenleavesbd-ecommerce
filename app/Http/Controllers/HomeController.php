@@ -21,7 +21,7 @@ class HomeController extends Controller
         $deliveryAreas = delivery_areas::all();
         $slides = Slide::all();
         $analytics = Analytic::all();
-        $categories = Category::all();
+        $categories = Category::where('is_active', true)->orderBy('display_order')->get();
         return view('home-two', compact('products', 'deliveryAreas', 'slides', 'analytics', 'categories'));
     }
     public function shop()

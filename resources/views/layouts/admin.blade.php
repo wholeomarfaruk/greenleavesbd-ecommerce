@@ -629,7 +629,7 @@
                     <div class="main-content">
                         @yield('content')
                         <div class="bottom-page">
-                            <div class="body-text">Copyright © 2025 YoungStar Life</div>
+                            <div class="body-text">Copyright © 2026 Green Leaves BD. All rights reserved</div>
                         </div>
                     </div>
 

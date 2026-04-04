@@ -190,11 +190,13 @@
                                                     method="POST" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="btn btn-sm btn-danger delete"  data-confirm-delete="true"
-                                                       >Delete</button>
-                                                         <form action="{{ route('admin.categories.delete', ['id'=>$category->id]) }}" method="POST">
+                                                    <button class="btn btn-sm btn-danger delete"
+                                                        data-confirm-delete="true">Delete</button>
+                                                    <form
+                                                        action="{{ route('admin.categories.delete', ['id' => $category->id]) }}"
+                                                        method="POST">
 
-                                            </form>
+                                                    </form>
                                                 </form>
                                             </div>
                                         </div>
@@ -209,7 +211,6 @@
                                     </li>
                                 @endforeach
                             </ul>
-
                         </div>
                     </div>
                 </div>

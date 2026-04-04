@@ -325,7 +325,7 @@
             </div>
         </div>
     </section>
-    @foreach ($categories as $category)
+    @foreach ($categories->where('is_homepage_show', true) as $category)
         @if ($category->products->count() > 0)
             <section class="sec-style-1 my-3">
                 <div class="container">

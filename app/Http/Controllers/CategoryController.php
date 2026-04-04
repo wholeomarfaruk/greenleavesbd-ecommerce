@@ -121,12 +121,14 @@ class CategoryController extends Controller
     // @param  int  $id
     // @return \Illuminate\Http\Response
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $request->validate([
             'name'=> 'required',
             'status'=> 'required',
         ]);
+
+        $id = $request->id;
         $category = Category::find($id);
 
         if (!$category) {
@@ -143,14 +145,43 @@ class CategoryController extends Controller
         if(Category::where('slug', $slug)->where('id', '!=', $id)->exists()){
             $slug .= '-';
         }
+        $filename = null;
+        $path='storage/images/category/';
+        if($request->hasFile('image')) {
+            // Check if the directory exists
+
+            if(!file_exists(public_path($path))) {
+                // Create the directory if it does not exist
+                mkdir(public_path($path), 0777, true);
+            }
+
+            // Check if the directory has read and write permissions
+            if(!is_writable(public_path($path))) {
+                chmod(public_path($path), 0777);
+            }
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+
+            $image->move(public_path('storage/images/category'), $imageName);
+            $filename = $imageName;
+            if($category->image){
+                if(file_exists(public_path($path . $category->image))){
+                    unlink(public_path($path . $category->image));
+                }
+            }
+        }
 
         $category->update([
-            'status' => $request->status ?? 1,
+            'is_active' => $request->status ?? 0,
             'name' => $request->name,
             'slug' => $slug,
+            'image'=> $filename ?? $category->image,
+            'is_homepage_show' => $request->is_homepage_show ?? 0,
+            'display_order' => $request->display_order ?? 0,
+            'is_show_in_menu' => $request->is_show_in_menu ?? 0,
         ]);
 
-        return redirect()->route('admin.categories.list')->with('success', 'Category updated successfully');
+        return redirect()->route('admin.categories')->with('success', 'Category updated successfully');
 
     }
     // Update the specified category in storage End.================================================
