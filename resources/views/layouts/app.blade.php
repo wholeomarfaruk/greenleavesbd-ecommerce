@@ -120,7 +120,7 @@
     </header>
     <!--header end-->
     <aside id="sidebar"></aside>
-    <main id="Content-body" class="py-3">
+    <main id="Content-body" class="">
         @yield('content')
     </main>
     <!--footer top start-->
