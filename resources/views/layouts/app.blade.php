@@ -149,8 +149,12 @@
                         <a href="https://www.youtube.com/@greenleaves172" class="social_icon" style="text-decoration:none;" target="_blank">
                             <i class="fa-brands fa-youtube" style="color: rgb(255, 0, 0);"></i>
                         </a>
-                        <i class="fa-brands fa-instagram"></i>
-                        <i class="fa-brands fa-whatsapp" style="color: rgb(37, 211, 102);"></i>
+                        <a href="#" class="social_icon" style="text-decoration:none;" target="_blank">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/8801893620392" class="social_icon" style="text-decoration:none;" target="_blank">
+                            <i class="fa-brands fa-whatsapp" style="color: rgb(37, 211, 102);"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4 col-sm-4">
