@@ -2,15 +2,20 @@
 
 @section('content')
         <!--banner start-->
+        @if($slides->count() > 0)
         <section class="hero-slider">
             <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
                 <div class="carousel-inner">
+                    @foreach ($slides as $slide)
+
+
                     <div class="carousel-item active">
                         <div class="d-block w-100 hero-slide"
-                            style="background-image: url('{{ asset('frontend/img/banner/main_banner1.jpeg') }}');">
+                            style="background-image: url('{{ asset($slide?->image) }}');">
                         </div>
                     </div>
-                    <div class="carousel-item">
+                     @endforeach
+                    {{-- <div class="carousel-item">
                         <div class="d-block w-100 hero-slide"
                             style="background-image: url('{{ asset('frontend/img/banner/main_banner2.jpeg') }}');">
                         </div>
@@ -19,7 +24,7 @@
                         <div class="d-block w-100 hero-slide"
                             style="background-image: url('{{ asset('frontend/img/banner/main_banner3.jpeg') }}');">
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
 
                 <!-- Controls -->
@@ -33,6 +38,7 @@
                 </button>
             </div>
         </section>
+        @endif
         <!--banner end-->
         <!--our Category start-->
         <section class="our_category">

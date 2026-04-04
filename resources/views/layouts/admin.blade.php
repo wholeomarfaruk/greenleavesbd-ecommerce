@@ -248,18 +248,18 @@
                                         <div class="text">Delivery Areas</div>
                                     </a>
                                 </li>
-                                {{-- <li class="menu-item">
+                               <li class="menu-item">
                                     <a href="{{ route('admin.slides') }}" class="">
                                         <div class="icon"><i class="icon-image"></i></div>
                                         <div class="text">Slider</div>
                                     </a>
                                 </li>
-                                <li class="menu-item">
-                                    <a href="users.html" class="">
+                                 <li class="menu-item">
+                                    <a href="{{ route('admin.user.index') }}" class="">
                                         <div class="icon"><i class="icon-user"></i></div>
                                         <div class="text">User</div>
                                     </a>
-                                </li> --}}
+                                </li>
                                 {{-- <li class="menu-item has-children">
                                     <a href="javascript:void(0);" class="menu-item-button">
                                         <div class="icon"><i class="icon-bar-chart"></i></div>
