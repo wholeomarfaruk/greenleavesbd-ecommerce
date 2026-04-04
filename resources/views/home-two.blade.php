@@ -11,7 +11,7 @@
 
                     <div class="carousel-item active">
                         <div class="d-block w-100 hero-slide"
-                            style="background-image: url('{{ asset($slide?->image) }}');">
+                            style="background-image: url('{{ asset('storage/images/slides/'.$slide?->image) }}');">
                         </div>
                     </div>
                      @endforeach
