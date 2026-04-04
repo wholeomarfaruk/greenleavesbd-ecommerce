@@ -1079,7 +1079,7 @@ class AdminController extends Controller
             'title' => 'required',
             'subtitle' => 'required',
             'tagline' => 'required',
-            'image' => 'required|mimes:jpg,jpeg,png',
+            'image' => 'required|max:2048|mimes:jpg,jpeg,png,gif,webp',
         ]);
 
         $slide = new Slide();
@@ -1108,8 +1108,10 @@ class AdminController extends Controller
             mkdir($image_path, 0777, true);
         }
         $image = Image::read($image->path());
-        $image->cover(602, 602, 'top');
-        $image->resize(602, 602, function ($constraint) {
+        $originalWidth = $image->width();
+        $originalHeight = $image->height();
+        $image->save($image_path . $imageName);
+        $image->resize($originalWidth, $originalHeight, function ($constraint) {
             $constraint->aspectRatio();
         });
         $image->save($image_path . $imageName);
