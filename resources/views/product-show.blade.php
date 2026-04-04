@@ -8,8 +8,8 @@
         }
 
         .mySwiper2 .swiper-slide img {
-            height: 100%;
-            width: auto;
+            height: auto;
+            width: 100%;
             margin: 0 auto;
             object-fit: contain;
 
