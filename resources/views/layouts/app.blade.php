@@ -183,7 +183,7 @@
                     <div class="footer_item footer_item1">
                         <h2>Contact Us</h2>
                         <p><span><i class="fa-solid fa-phone"></i></span> +8801893-620392</p>
-                        <p><span><i class="fa-solid fa-envelope"></i></span>info@sitename.com</p>
+                        <p><span><i class="fa-solid fa-envelope"></i></span>info@greenleavesbd.com</p>
                         <p><span><i class="fa-solid fa-location-dot"></i></span>Dhaka, Bangladesh</p>
 
                     </div>
