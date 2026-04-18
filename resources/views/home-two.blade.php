@@ -402,9 +402,9 @@
             </h1>
             <ul class="list-inline fs-6 fw-medium">
                 <li><i class="fa-solid fa-angles-right text-primary-color"></i> সারা বাংলাদেশে ক্যাশ অন ডেলিভারি
-                    এভেইলেবল </li>
+                    অ্যাভেইলেবল </li>
 
-                <li><i class="fa-solid fa-angles-right  text-primary-color"></i> আপনি যদি আপনার ক্রয়কৃত ড্রেসটি
+                <li><i class="fa-solid fa-angles-right  text-primary-color"></i> আপনি যদি আপনার ক্রয়কৃত পণ্যটি
                     নিয়ে সন্তুষ্ট না হন, তবে শুধু ডেলিভারি চার্জ প্রদান করে ডেলিভারি ম্যানের কাছে সহজেই ফেরত দিতে
                     পারবেন। </li>
 
@@ -415,15 +415,15 @@
         </div>
     </section>
         <!--wholesale program start-->
-        <section class="wholesale" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('{{ asset('frontend/img/banner/wholesale.jpeg') }}');">
+        <section class="wholesale" style="background:  url('{{ asset('frontend/img/banner/wholesale.jpeg') }}');">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-5">
                         <div class="wholesale_program">
-                            <h1>Our Wholesale Program</h1>
+                            {{-- <h1>Our Wholesale Program</h1>
                             <p>Join our Women’s Fashion Wholesale Program! Enjoy exclusive discounts, premium quality,
                                 and unbeatable deals. Sign up today and elevate your business!</p>
-                            <a href="#"><button>Contact Us</button></a>
+                            <a href="#"><button>Contact Us</button></a> --}}
                         </div>
                     </div>
                 </div>
@@ -439,12 +439,12 @@
 
                             <!--icon-->
                             <div class="service_icon">
-                                <i class="fa-solid fa-shirt"></i>
+                               <i class="fa-solid fa-cart-shopping"></i>
                             </div>
 
                             <!--text-->
                             <div class="service_text">
-                                <h2>unique products</h2>
+                                <h2>Unique Products</h2>
                                 <p>Enjoy top quality items for less</p>
                             </div>
 
@@ -473,7 +473,7 @@
                             <!--text-->
                             <div class="service_text">
                                 <h2>Free Shipping</h2>
-                                <p>Free Shipping for orders over £130</p>
+                                <p>Free Shipping for Over 500 taka order</p>
                             </div>
 
                         </div>

@@ -76,7 +76,7 @@
        <!--text-->
        <div class="service_text contact_details_text">
           <h2>Office Address</h2>
-          <p>315, Sher-E-Bangla Road, Sonadanga, Khulna</p>
+          <p>303, Sher-E-Bangla Road, Sonadanga, Khulna</p>
        </div>
 
       </div>

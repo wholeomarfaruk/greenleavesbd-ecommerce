@@ -24,16 +24,19 @@
       <div class="company_img" style="background-image: url('{{ asset('frontend/img/about/Kamal-Hossain-CEO-of-Green-Leaves-BD.jpeg') }}');">
       </div>
       <div class="company_icon">
-        <span><img class="w-100" src="{{ asset('frontend/img/about/recruit.gif') }}" alt="Green Leaves"></span><p>100+ Products</p>
+        <span><img class="w-100" src="{{ asset('frontend/img/about/recruit.gif') }}" alt="Green Leaves"></span><p>১০০+ পণ্য</p>
       </div>
       <div class="company_icon">
-        <span><img class="w-100" src="{{ asset('frontend/img/about/earth.gif') }}" alt="Green Leaves"></span><p>50+ Dealer</p>
+        <span><img class="w-100" src="{{ asset('frontend/img/about/earth.gif') }}" alt="Green Leaves"></span><p>৫০+ ডিলার</p>
       </div>
       <div class="company_icon">
-        <span><img class="w-100" src="{{ asset('frontend/img/about/human.gif') }}" alt="Green Leaves"></span><p>20000+ Customer</p>
+        <span><img class="w-100" src="{{ asset('frontend/img/about/human.gif') }}" alt="Green Leaves"></span><p>২০০০০+ গ্রাহক</p>
       </div>
       <div class="company_icon">
-        <span><img class="w-100" src="{{ asset('frontend/img/about/worker.gif') }}" alt="Green Leaves"></span><p>10+ Year Experience</p>
+        <span><img class="w-100" src="{{ asset('frontend/img/about/worker.gif') }}" alt="Green Leaves"></span><p>৫+ বছরের অভিজ্ঞতা</p>
+      </div>
+      <div class="company_icon">
+        <span><img class="w-100" src="{{ asset('frontend/img/about/human.gif') }}" alt="Green Leaves"></span><p>২০০+ কর্মচারী</p>
       </div>
     </div>
    </div>
@@ -41,11 +44,11 @@
     <div class="company_text">
       <h5>ABOUT US</h5>
      <h1>GREEN LEAVES BANGLADESH</h1>
-     <p> <strong>গ্রীন লিভস বাংলাদেশ</strong> দেশের অন্যতম শীর্ষস্থানীয় এবং দ্রুত বর্ধনশীল একটি বৈচিত্র্যময় ম্যানুফ্যাকচারিং, সোর্সিং ও বাজারজাতকারী কোম্পানি। ২০১১ সালের আত্মপ্রকাশের পর থেকে এটি আধুনিক ব্যবসায়িক মডেল ও প্রযুক্তির সমন্বয়ে গড়ে উঠেছে। সময়ের সাথে সাথে এটি বাংলাদেশের বাজারে একটি নির্ভরযোগ্য নাম হিসেবে প্রতিষ্ঠিত হয়েছে।</p>
+     <p> <strong>গ্রীন লীভস বাংলাদেশ</strong> দেশের অন্যতম শীর্ষস্থানীয় এবং দ্রুত বর্ধনশীল একটি বৈচিত্র্যময় ম্যানুফ্যাকচারিং, মোড়কজাতকারী ও বাজারজাতকারী কোম্পানি। ২০২১ সালের আত্মপ্রকাশের পর থেকে এটি আধুনিক ব্যবসায়িক মডেল ও প্রযুক্তির সমন্বয়ে গড়ে উঠেছে। সময়ের সাথে সাথে এটি বাংলাদেশের বাজারে একটি নির্ভরযোগ্য নাম হিসেবে প্রতিষ্ঠিত হয়েছে।</p>
     <p>
-    <strong>গ্রীন লিভস বাংলাদেশ</strong> কোম্পানির কর্পোরেট অফিস অবস্থিত বাংলাদেশের খুলনা বিভাগে। প্রতিষ্ঠানটি সারা দেশে ৩৯ টি নিজস্ব ডিলার নেটওয়ার্কের মাধ্যমে গ্রাহকদের কাছে পৌঁছে থাকে। পাশাপাশি গ্লোবাল দিক থেকেও এটি কাজ করে থাকে, যার মাধ্যমে আন্তর্জাতিক বাজারেও প্রবেশের সুযোগ তৈরি হয়েছে।</p>
+    <strong>গ্রীন লীভস বাংলাদেশ</strong> কোম্পানির কর্পোরেট অফিস অবস্থিত বাংলাদেশের খুলনা বিভাগে। প্রতিষ্ঠানটি সারা দেশে ৫০+ টি নিজস্ব ডিলার নেটওয়ার্কের মাধ্যমে গ্রাহকদের কাছে পৌঁছে থাকে। পাশাপাশি গ্লোবাল দিক থেকেও এটি কাজ করে থাকে, যার মাধ্যমে আন্তর্জাতিক বাজারেও প্রবেশের সুযোগ তৈরি হয়েছে।</p>
     <p>
-    বর্তমানে <strong>গ্রীন লিভস বাংলাদেশ</strong> কোম্পানিতে রয়েছে ৫০০ জনের বেশি দক্ষ ও অভিজ্ঞ কর্মী যারা দেশের বিভিন্ন অঞ্চলে আমাদের পণ্য বিতরণে সক্রিয়ভাবে কাজ করছে। এই সংস্থার প্রধান লক্ষ্য হচ্ছে গ্রাহকদের সর্বোচ্চ সন্তুষ্টি নিশ্চিত করা এবং সেরা মানের পণ্য সরবরাহ করা। আমাদের এই অগ্রযাত্রায় সকল গ্রাহক, পরিবেশক ও শুভানুধ্যায়ীদের প্রতি গ্রীন লিভস বাংলাদেশের পক্ষ থেকে আন্তরিক কৃতজ্ঞতা ও ধন্যবাদ।</p>
+    বর্তমানে <strong>গ্রীন লীভস বাংলাদেশ</strong> কোম্পানিতে রয়েছে 2০০+ জনের বেশি দক্ষ ও অভিজ্ঞ কর্মী যারা দেশের বিভিন্ন অঞ্চলে আমাদের পণ্য বিতরণে সক্রিয়ভাবে কাজ করছে। এই সংস্থার প্রধান লক্ষ্য হচ্ছে গ্রাহকদের সর্বোচ্চ সন্তুষ্টি নিশ্চিত করা এবং সেরা মানের পণ্য সরবরাহ করা। আমাদের এই অগ্রযাত্রায় সকল গ্রাহক, পরিবেশক ও শুভানুধ্যায়ীদের প্রতি গ্রীন লীভস বাংলাদেশের পক্ষ থেকে আন্তরিক কৃতজ্ঞতা ও ধন্যবাদ।</p>
     </div>
    </div>
   </div>
