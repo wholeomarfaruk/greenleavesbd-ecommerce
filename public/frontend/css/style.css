@@ -27,7 +27,7 @@
 
 :root{
   --primary-color: #02a53b;
-  --primary-accent-color: #fff;
+  --primary-accent-color: #047c2e;
    font-family: var(--Inclusive) !important;
 
     color: var(--black) !important;
@@ -59,6 +59,13 @@ body {
   --bs-btn-active-bg: #{shade-color($bd-violet, 20%)};
   --bs-btn-active-border-color: #{shade-color($bd-violet, 20%)};
 }
+
+@media (max-width:600px){
+.btn{
+ font-size: 16px !important;
+}
+
+} 
 .icon-shape {
     display: inline-flex;
     align-items: center;
@@ -364,6 +371,10 @@ body {
 /* Product section End===========================================*/
 
 /* header-1 start */
+header .middle-navbar, .footer_top{
+    background: #6a017d;
+background: linear-gradient(90deg, rgba(106, 1, 125, 1) 0%, rgba(247, 178, 230, 1) 100%);
+}
 .header_top{
     background-color: var(--black);
     text-align: center;
@@ -404,8 +415,12 @@ body {
 }
 .profile_icon{
     margin-right: 10px;
+    color:#fff;
+
 }
-.cart_icon{}
+.cart_icon{
+    color:#fff;
+}
 /* header-2 end */
 
 /* header-3 start */
@@ -611,10 +626,13 @@ body {
 }
 .footer_item h2{
     font-size: 22px;
+    color: #fff;
 }
 .footer_item p{
     font-size: 14px;
     width: 300px;
+    color: #fff;
+
 }
 .footer_item ul{
     padding: 0;
@@ -625,16 +643,19 @@ body {
 .footer_item ul li a{
     font-size: 14px;
     text-decoration: none;
-    color: var(--black);
+      color: #fff;
+
 }
 .footer_item p span{}
 .footer_item p span i{
     font-size: 20px;
     border: none;
+    
 }
 .footer_item i{
     font-size: 24px;
-    color: var(--black);
+        color: #fff;
+
     margin: 2px;
 }
 .footer_item i:hover{
@@ -654,7 +675,7 @@ body {
 /* footer start */
 .footer{
     padding: 15px 0;
-    background-color: var(--green);
+    background-color: #6a017d;
 }
 .footer_bottom{
     justify-content: space-between;
@@ -667,6 +688,7 @@ body {
 }
 .footer_bottom p a{
     color: var(--white);
+    
 }
 /* footer end */
 

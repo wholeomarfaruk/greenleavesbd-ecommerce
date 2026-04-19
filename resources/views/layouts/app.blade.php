@@ -30,7 +30,7 @@
         }
     </style>
 
-    <link rel="stylesheet" href="{{ asset('frontend/css/style.css?v=1.0.4') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/style.css?v=1.0.5') }}">
 
     <link rel="stylesheet" href="{{ asset('frontend/css/media.css?v=1.0.2') }}">
 
@@ -59,7 +59,7 @@
             </div>
         </div>
         <!--Conatiner-2 Start-->
-        <div class="container-fluid bg-white px-0">
+        <div class="container-fluid bg-white px-0 middle-navbar">
             <nav class="navbar navbar-expand-lg">
                 <div class="container">
                     <!--logo-->
@@ -71,11 +71,14 @@
                         <form class="d-flex" role="search" action="{{ route('search') }}">
                             <input class="form-control me-2" type="search" placeholder="Search" name="search"
                                 aria-label="Search" value="{{ request('search') }}" />
-                            <button class="btn btn-outline-success" type="submit">Search</button>
+                            <button class="btn btn-outline-light" type="submit">Search</button>
                         </form>
                     </div>
                     <!--Icon-->
                     <div class="icon_box">
+                        <a href="#"><i class="profile_icon fa-regular fa-circle-user"></i></a>
+                        <a href="#" data-bs-toggle="offcanvas"
+                                        data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" role="button" ><i class="cart_icon fa-solid fa-cart-arrow-down"></i></a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav_c"
                             aria-controls="nav_c" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
@@ -125,6 +128,18 @@
                 </div>
             </nav>
         </div>
+                <!-- shopping cart offcanvas start -->
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header">
+                <h5 id="offcanvasRightLabel">Shopping Cart</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                    aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                ...
+            </div>
+        </div>
+        <!-- shopping cart offcanvas end -->
     </header>
     <!--header end-->
     <aside id="sidebar"></aside>
@@ -142,17 +157,20 @@
                         <p>Green Leaves Bangladesh একটি জনপ্রিয় ব্র্যান্ড,
                             যেখানে বিভিন্ন ধরনের খাদ্য পণ্য পাওয়া যায়।
                             এখানে সাশ্রয়ী মূল্যে ভালো মানের পণ্য সরবরাহ করা হয়।</p>
-                        <a href="https://www.facebook.com/greenleavesbd0" class="social_icon" style="text-decoration:none;" target="_blank">
+                        <a href="https://www.facebook.com/greenleavesbd0" class="social_icon"
+                            style="text-decoration:none;" target="_blank">
 
                             <i class="fa-brands fa-square-facebook" style="color: rgb(24, 119, 242);"></i>
                         </a>
-                        <a href="https://www.youtube.com/@greenleaves172" class="social_icon" style="text-decoration:none;" target="_blank">
+                        <a href="https://www.youtube.com/@greenleaves172" class="social_icon"
+                            style="text-decoration:none;" target="_blank">
                             <i class="fa-brands fa-youtube" style="color: rgb(255, 0, 0);"></i>
                         </a>
                         <a href="#" class="social_icon" style="text-decoration:none;" target="_blank">
                             <i class="fa-brands fa-instagram"></i>
                         </a>
-                        <a href="https://wa.me/8801893620392" class="social_icon" style="text-decoration:none;" target="_blank">
+                        <a href="https://wa.me/8801893620392" class="social_icon" style="text-decoration:none;"
+                            target="_blank">
                             <i class="fa-brands fa-whatsapp" style="color: rgb(37, 211, 102);"></i>
                         </a>
                     </div>

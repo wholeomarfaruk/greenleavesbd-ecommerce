@@ -287,11 +287,28 @@
                                     </div>
 
                                 </div>
-                                <div class="col-12">
+                                <div class="col-6">
                                     <button id="order-button" type="submit"
                                         {{ $product?->stock_status == 'out_of_stock' ? 'disabled' : '' }}
-                                        class="btn btn-primary bg-primary-color mb-3 w-100 fw-bold fs-5 py-2">অর্ডার
+                                        class="btn btn-primary bg-primary-color mb-3 w-100 fw-bold fs-5 py-2"><i class="fa-solid fa-basket-shopping"></i> অর্ডার
                                         করুন {{ $product?->stock_status == 'out_of_stock' ? '(স্টক শেষ)' : '' }}</button>
+                                </div>
+                                <div class="col-6">
+                                    <button id="order-button" type="button"
+                                        {{ $product?->stock_status == 'out_of_stock' ? 'disabled' : '' }}
+                                        class="btn btn-primary bg-primary-color mb-3 w-100 fw-bold fs-5 py-2"><i class="fa-solid fa-cart-plus"></i> কার্টে যুক্ত করুন {{ $product?->stock_status == 'out_of_stock' ? '(স্টক শেষ)' : '' }}</button>
+                                </div>
+                                
+                                <div class="col-6">
+                                    <a href="https://wa.me/8801893620392" target="_blank" id="order-button" type="button"
+                                        {{ $product?->stock_status == 'out_of_stock' ? 'disabled' : '' }}
+                                        class="btn btn-primary bg-primary-color mb-3 w-100 fw-bold fs-5 py-2"><i class="fa-brands fa-whatsapp"></i> WhatsApp
+                                        করুন {{ $product?->stock_status == 'out_of_stock' ? '(স্টক শেষ)' : '' }}</a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="https://wa.me/8801893620392" target="_blank" id="order-button" type="button"
+                                        {{ $product?->stock_status == 'out_of_stock' ? 'disabled' : '' }}
+                                        class="btn btn-primary bg-primary-color mb-3 w-100 fw-bold fs-5 py-2"><i class="fa-solid fa-phone"></i> কল করুন</a>
                                 </div>
 
                             </div>
@@ -381,7 +398,7 @@
             </h1>
             <ul class="list-inline fs-6 fw-medium">
                 <li><i class="fa-solid fa-angles-right text-primary-color"></i> সারা বাংলাদেশে ক্যাশ অন ডেলিভারি
-                    এভেইলেবল </li>
+                    অ্যাভেইলেবল </li>
                 <li><i class="fa-solid fa-angles-right  text-primary-color"></i> আপনি যদি আপনার ক্রয়কৃত ড্রেসটি
                     নিয়ে সন্তুষ্ট না হন, তবে শুধু ডেলিভারি চার্জ প্রদান করে ডেলিভারি ম্যানের কাছে সহজেই ফেরত দিতে
                     পারবেন। </li>
