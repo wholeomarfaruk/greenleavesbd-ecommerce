@@ -119,11 +119,13 @@
                                     </ul>
                                 </li>
                                 @php
-                                    $orderStatus = App\Models\Order::select('status')
+                                    $orderStatus = App\Models\Order::where('status', '!=', 'autosave')
+                                        ->select('status')
                                         ->selectRaw('COUNT(*) as count')
                                         ->groupBy('status')
                                         ->get();
-                                    $orderCount = App\Models\Order::count();
+                                    $orderCount = App\Models\Order::whereNotIn('status', ['deleted', 'autosave'])->count();
+                                    $activeCartCount = App\Models\Cart::has('items')->count();
                                 @endphp
                                 <li class="menu-item has-children {{ Request::is('admin/orders*') ? 'active' : '' }}">
                                     <a href="javascript:void(0);" class="menu-item-button">
@@ -234,6 +236,12 @@
                                             </a>
                                         </li>
                                     </ul>
+                                </li>
+                                <li class="menu-item {{ Request::is('admin/carts*') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.carts') }}" class="">
+                                        <div class="icon"><i class="icon-shopping-cart"></i></div>
+                                        <div class="text">Carts ({{ $activeCartCount ?? 0 }})</div>
+                                    </a>
                                 </li>
 
                                 <li class="menu-item">

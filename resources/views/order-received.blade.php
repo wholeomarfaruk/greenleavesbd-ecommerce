@@ -81,7 +81,7 @@
                     <div class="col-md-6">
                         <h5 class="some-titel">Delivery</h5>
                         <h6 class="delivery-type">ক্যাশ অন ডেলিভারী</h6>
-                        <p class="delivery-notice">আপনার অর্ডারের জন্য আন্তরিক কৃতজ্ঞতা। ২৪ ঘণ্টার মধ্যে আমাদের টিম আপনার সাথে যোগাযোগ করবে এবং খুব শীঘ্রই আপনার অর্ডারটি প্রসেস করা হবে । YOUNGSTAR Life এর সাথেই থাকুন।</p>
+                        <p class="delivery-notice">আপনার অর্ডারের জন্য আন্তরিক কৃতজ্ঞতা। ২৪ ঘণ্টার মধ্যে আমাদের টিম আপনার সাথে যোগাযোগ করবে এবং খুব শীঘ্রই আপনার অর্ডারটি প্রসেস করা হবে । Geen Leaves BD এর সাথেই থাকুন।</p>
                     </div>
                 </div>
                 {{-- <div class="buttom-notice mt-5">
@@ -117,7 +117,7 @@
                     price: {{ $orderItems->first()->product->discount_price ?? $orderItems->first()->product->price }}, // Number, two decimals, required
                     quantity: '{{ $orderItems->first()->quantity }}' ?? 1, // Integer, required
                     item_category: "Pants", // String, optional but advised if available
-                    item_brand: 'YoungStar Life', // String, optional, might be useful if you sell different brands
+                    item_brand: 'Geen Leaves BD', // String, optional, might be useful if you sell different brands
                     item_variant: '{{json_decode($item?->options)?->size}}' // String, optional
                 }]
             },

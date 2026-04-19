@@ -86,7 +86,7 @@
             <div class="label">
                 <div class="logo">
                     <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('frontend/img/youngstar_logo_transparent.png'))) }}" alt="Logo">
-                    <p style="text-align: center; margin: 0;"><strong>YOUNGSTAR Life</strong></p>
+                    <p style="text-align: center; margin: 0;"><strong>Geen Leaves BD</strong></p>
                 </div>
                 <div class="barcode">
                     {!! DNS1D::getBarcodeHTML($item['consignment_id'], 'C128', 1.2, 40) !!}

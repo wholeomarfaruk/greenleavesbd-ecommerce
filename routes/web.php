@@ -2,6 +2,7 @@
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\StickerController;
+use App\Http\Controllers\Admin\CartController as AdminCartController;
 use App\Http\Controllers\Api\SteadFastController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Artisan;
@@ -13,7 +14,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\AuthAdmin;
-use App\Http\Controllers\CartController;
+use App\Http\Controllers\CartController as LegacyCartController;
+use App\Http\Controllers\Storefront\CartController as StorefrontCartController;
+use App\Http\Controllers\Storefront\CheckoutController;
 use Spatie\LaravelPackageTools\Package;
 
      Route::get('/optimize', function () {
@@ -22,7 +25,7 @@ use Spatie\LaravelPackageTools\Package;
            
             return '<h3>✅ Application optimized successfully!</h3>';
         });
-Route::post('/cart/add/json', [CartController::class, 'add_json_to_cart'])->name('cart.add.json')->withoutMiddleware('auth');
+Route::post('/cart/add/json', [LegacyCartController::class, 'add_json_to_cart'])->name('cart.add.json')->withoutMiddleware('auth');
 Route::get('/test',function(){
     return view('test');
 });
@@ -58,26 +61,28 @@ Route::get('/product/test', [HomeController::class, 'ProductTest'])->name('produ
 
 
 //cart
-Route::get('/cart/distroy', [CartController::class, 'cart_distroy'])->name('cart.distroy');
-Route::get('/cart/test', [CartController::class, 'test'])->name('cart.test');
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-Route::post('/cart/add/{id}', [CartController::class, 'add_to_cart'])->name('cart.add');
+Route::get('/cart/distroy', [LegacyCartController::class, 'cart_distroy'])->name('cart.destroy');
+Route::get('/cart/test', [LegacyCartController::class, 'test'])->name('cart.test');
+Route::get('/cart', [StorefrontCartController::class, 'index'])->name('cart.index');
+Route::get('/cart/view', [StorefrontCartController::class, 'index'])->name('cart.view');
+Route::get('/cart/items', [StorefrontCartController::class, 'items'])->name('cart.items');
+Route::post('/cart/add', [StorefrontCartController::class, 'store'])->name('cart.add');
+Route::patch('/cart/items/{cartItem}', [StorefrontCartController::class, 'update'])->name('cart.update');
+Route::delete('/cart/items/{cartItem}', [StorefrontCartController::class, 'destroy'])->name('cart.items.destroy');
+Route::post('/cart/remove', [StorefrontCartController::class, 'remove'])->name('cart.remove');
+Route::delete('/cart/clear', [StorefrontCartController::class, 'clear'])->name('cart.clear');
+Route::get('/cart/checkout', [CheckoutController::class, 'show'])->name('cart.checkout');
+Route::post('/checkout/place-order', [CheckoutController::class, 'store'])->name('checkout.place');
+Route::get('/checkout/confirmation/{order:order_number}', [CheckoutController::class, 'confirmation'])->name('checkout.confirmation');
 
-Route::delete('/cart/remove/{id}', [CartController::class, 'remove_item'])->name('cart.remove');
-Route::put('/cart/increase/{rowId}', [CartController::class, 'increase_quantity'])->name('cart.increase');
-Route::put('/cart/decrease/{rowId}', [CartController::class, 'decrease_quantity'])->name('cart.decrease');
-Route::delete('/cart/clear', [CartController::class, 'clear_cart'])->name('cart.clear');
-Route::get('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
-Route::post('/cart/checkout/apply-coupon', [CartController::class, 'apply_coupon'])->name('cart.checkout.apply.coupon');
-Route::get('/cart/checkout/remove-coupon', [CartController::class, 'remove_coupon'])->name('cart.checkout.remove.coupon');
-Route::post('/cart/checkout/place-order', [CartController::class, 'place_order'])->name('cart.order.place');
-Route::get('/order-received', [CartController::class, 'order_received'])->name('order.received')->withoutMiddleware('auth');
+Route::post('/cart/checkout/apply-coupon', [LegacyCartController::class, 'apply_coupon'])->name('cart.checkout.apply.coupon');
+Route::get('/cart/checkout/remove-coupon', [LegacyCartController::class, 'remove_coupon'])->name('cart.checkout.remove.coupon');
+Route::post('/cart/checkout/place-order', [LegacyCartController::class, 'place_order'])->name('cart.order.place');
+Route::get('/order-received', [LegacyCartController::class, 'order_received'])->name('order.received')->withoutMiddleware('auth');
 
 Route::post('/cart/checkout/test-place-order', [CartControllerTest::class, 'place_order_test'])->name('cart.order.place.test');
 
 Route::get('/order-received-test', [CartControllerTest::class, 'order_received_test'])->name('order.received.test')->withoutMiddleware('auth');
-Route::post('/cart/autosave', [CartController::class, 'orderAutosave'])->name('cart.order.autosave');
-
 // Admin
 Route::prefix('admin')->group(function () {
     Route::middleware(['auth', AuthAdmin::class])->group(function () {
@@ -126,7 +131,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/orders/pending', [AdminController::class, 'ordersPending'])->name('admin.orders.pending');
         Route::get('/orders/confirmed', [AdminController::class, 'ordersConfirmed'])->name('admin.orders.confirmed');
         Route::get('/orders/processing', [AdminController::class, 'ordersProcessing'])->name('admin.orders.processing');
-        Route::get('/orders/ready', [AdminController::class, 'ordersInReview'])->name('admin.orders.ready');
+        Route::get('/orders/ready', [AdminController::class, 'ordersReady'])->name('admin.orders.ready');
         Route::get('/orders/in-review', [AdminController::class, 'ordersInReview'])->name('admin.orders.in_review');
         Route::get('/orders/in-transit', [AdminController::class, 'ordersInTransit'])->name('admin.orders.in_transit');
         Route::get('/orders/delivered', [AdminController::class, 'ordersDelivered'])->name('admin.orders.delivered');
@@ -147,6 +152,8 @@ Route::prefix('admin')->group(function () {
         Route::put('/orders/update/{id}/details', [AdminController::class, 'updateOrderDetails'])->name('admin.orders.update.details');
         Route::get('/orders/add', [AdminController::class, 'orderAdd'])->name('admin.orders.add');
         Route::post('/orders/store', [AdminController::class, 'orderStore'])->name('admin.orders.store');
+        Route::get('/carts', [AdminCartController::class, 'index'])->name('admin.carts');
+        Route::get('/carts/{cart}', [AdminCartController::class, 'show'])->name('admin.carts.show');
         //delivery areas
         Route::get('/delivery-areas', [AdminController::class, 'deliveryAreas'])->name('admin.deliveryareas');
         Route::get('/delivery-areas/add', [AdminController::class, 'deliveryAreaAdd'])->name('admin.deliveryareas.add');

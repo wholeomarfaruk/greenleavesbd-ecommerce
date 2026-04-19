@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\BlackList;
+use App\Models\CartItem;
 use App\Models\Device;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Surfsidemedia\Shoppingcart\Facades\Cart;
+use App\Models\Cart;
 use App\Models\products;
 use App\Models\delivery_areas;
 use App\Models\Order;
@@ -23,7 +24,7 @@ class CartController extends Controller
 {
     public function index()
     {
-        $items = Cart::instance('cart')->content();
+        $items = new Cart();
         return view('cart', compact('items'));
     }
     public function test()
@@ -33,7 +34,6 @@ class CartController extends Controller
         return response()->json([
             'data' => Cart::instance('cart')->content(),
         ]);
-
     }
     public function cart_calculate($delivery_charge = 0, $cod_charge_percent = 0)
     {
@@ -74,24 +74,65 @@ class CartController extends Controller
                 'cod_charge_percent' => $cod_charge_percent
             ]
         ];
-
     }
 
     public function add_to_cart(Request $request)
     {
-        $product = products::find($request->id);
+        $request->validate([
+            'product_id' => 'required|integer|exists:products,id',
+            'quantity'   => 'nullable|integer|min:1',
+        ]);
+
+        $quantity = (int) ($request->quantity ?? 1);
+
+        $product = products::find($request->product_id);
 
         if (!$product) {
-            return redirect()->back()->with('error', 'Product not found.');
+            return response()->json([
+                'status' => false,
+                'message' => 'Product not found.',
+            ], 404);
         }
-        // Debug the sale_price
 
-        if ($product->sale_price == null) {
-            $product->sale_price = $product->regular_price;
+        $unitPrice = $product->discount_price ?? $product->price;
+
+        if (!$unitPrice) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Product price not available.',
+            ], 422);
         }
-        Cart::instance('cart')->add($product->id, $product->name, $request->quantity, $product->sale_price)->associate('App\Models\Product');
 
-        return redirect()->back()->with('status', 'Product Added To Cart');
+        $cartId = $request->cookie('cart_id');
+        $cart = $cartId ? Cart::find($cartId) : null;
+
+        if (!$cart) {
+            $cart = Cart::create([
+                'user_id'   => auth()->id(),
+                'device_id' => $request->userAgent() ?? null,
+            ]);
+        }
+
+        $existingItem = $cart->items()?->where('product_id', $product->id)->first();
+
+        if ($existingItem) {
+            $existingItem->quantity += $quantity;
+            $existingItem->price = $unitPrice;
+            $existingItem->save();
+        } else {
+            $cart->items()->create([
+                'product_id' => $product->id,
+                'quantity'   => $quantity,
+                'price'      => $unitPrice,
+            ]);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Item added to cart successfully.',
+            'product_id' => $product->id,
+            'cart_id' => $cart->id,
+        ])->cookie('cart_id', $cart->id, 60 * 24 * 30);
     }
 
     public function cart_distroy()
@@ -137,7 +178,6 @@ class CartController extends Controller
             if (!$found) {
                 Cart::instance('cart')->remove($item->rowId);
             }
-
         }
 
         // Add the items from the JSON data to the cart.
@@ -250,8 +290,6 @@ class CartController extends Controller
         } else {
             return redirect()->back()->with('error', 'Invalid Coupon Code');
         }
-
-
     }
     public function remove_coupon()
     {
@@ -263,6 +301,45 @@ class CartController extends Controller
     {
 
         return view('checkout');
+    }
+    public function view_cart_items(Request $request)
+    {
+        $device_id = $request->userAgent() ?? null;
+        $user_data = $request->cookie('_sfud') ? json_decode($request->cookie('_sfud'), true) : null;
+        if ($user_data) {
+            $user_id = $user_data->user_id;
+            $items = CartItem::where('user_id', $user_id)->get()->toArray();
+            return response()->json(['status' => true, 'items' => $items]);
+        }
+        if ($device_id) {
+            $cart = Cart::with('items.product')
+                ->where('device_id', $device_id)
+                ->first();
+
+            if (!$cart) {
+                return response()->json([
+                    'status' => true,
+                    'items' => []
+                ]);
+            }
+
+            $items = $cart->items->map(function ($item) {
+                $image_path= asset("storage/images/products/".$item->product->image);
+    return [
+        'id'       => $item->id,
+        'image'    => $image_path ?? null,
+        'name'     => $item->product->name ?? null,
+        'quantity' => $item->quantity,
+        'price'    => $item->price,
+    ];
+});
+
+            return response()->json([
+                'status' => true,
+                'items' => $items
+            ]);
+        }
+        return response()->json(['status' => false]);
     }
     public function place_order(Request $request)
     {
@@ -284,10 +361,10 @@ class CartController extends Controller
         }
         $customer_check = Customer::where('phone', $phone)->first();
         $device_check = Device::where('user_agent', $request->userAgent())->first();
-        if($customer_check && $customer_check->is_blocked){
+        if ($customer_check && $customer_check->is_blocked) {
             return redirect()->back()->with('error', 'You are blacklisted from ordering');
         }
-        if($device_check && $device_check->is_blocked){
+        if ($device_check && $device_check->is_blocked) {
             return redirect()->back()->with('error', 'You are blacklisted from ordering');
         }
 
@@ -318,7 +395,6 @@ class CartController extends Controller
                         'status' => 'success',
                         'message' => 'আপনার ইতি মধ্যে একটি অর্ডার গ্রহন সফল হয়েছে। অনুগ্রহ করে কোন কিছু পরিবর্তন করতে চাইলে 01613046803 নাম্বারে ওয়াটসএপ যোগাযোগ করুন। নতুন কোন প্রোডাক্ট এই মুহুর্তে অর্ডার করতে চাইলে ওয়াটসএপ যোগাযোগ করুন অথবা ৩০ মিনিট পর চেষ্টা করুন',
                     ]);
-
                 }
             }
         }
@@ -385,98 +461,11 @@ class CartController extends Controller
                     'user_agent' => $request->server('HTTP_USER_AGENT'),
                     'ip_address' => $request->server('REMOTE_ADDR'),
                 ]);
-
             }
-            $order_check = Order::where('phone', $order->phone)->where('status', 'autosave')->get();
-            if ($order_check->count() > 0) {
-                $order_check->each->delete();
-            }
-
             return redirect()->route('order.received', ['order' => $order->id]);
         } catch (\Throwable $th) {
             //throw $th;
             return redirect()->back()->with(['status' => 'error', 'message' => $th->getMessage()]);
-        }
-    }
-    public function orderAutosave(Request $request)
-    {
-        // return $request->all();
-
-        $validated = $request->validate([
-            'phone' => 'required',
-        ]);
-        $phone = preg_replace('/\D/', '', $request->phone);
-        if (str_starts_with($phone, '88') && strlen($phone) > 11) {
-            $phone = substr($phone, 2);
-        }
-        if (str_starts_with($phone, '0') && strlen($phone) == 10) {
-            $phone = '0' . $phone;
-        }
-
-        $extra_data = [];
-        $extra_data['order_data'] = $request->all();
-
-
-        try {
-            //code...
-
-            $product = products::find($request->product_id);
-            $deliveryArea = delivery_areas::find($request->delivery_area);
-            $deliveryCharge = $deliveryArea->charge;
-
-            // Convert price and delivery charge to float for calculation
-            $price = (float) ($product->discount_price ?? $product->price);
-            $quantity = (float) $request->quantity;
-            $delivery = (float) $deliveryCharge;
-
-            // Calculate total
-            $total = ($price * $quantity) + $delivery;
-            $order = new Order();
-            $order->name = $request->name;
-            $order->phone = $phone ?? $request->phone;
-            $order->address = $request->address;
-            $order->delivery_area_id = $deliveryArea->id ?? null;
-            $order->cod_percentage = '0';
-            $order->cod_charge = '0';
-            $order->subtotal = $total;
-            $order->total = $total ?? '0';
-            $order->discount = '0';
-            $order->fee = $deliveryArea->charge ?? 0;
-
-            $order->is_paid = false;
-            $order->status = 'autosave';
-            if ($request->server('REMOTE_ADDR')) {
-                $order->ip_address = $request->server('REMOTE_ADDR');
-            }
-
-            if ($request->server('HTTP_USER_AGENT')) {
-                $order->user_agent = $request->server('HTTP_USER_AGENT');
-            }
-
-            if ($extra_data) {
-                $order->json_data = $extra_data;
-            }
-            $order->save();
-
-            $orderItem = new Order_Item();
-            $orderItem->order_id = $order->id;
-            $orderItem->product_id = $request->product_id;
-            $orderItem->price = $price;
-            $orderItem->quantity = $request->quantity;
-            if ($request->has('size')) {
-
-                $orderItem->options = json_encode(['size' => $request->size ?? '']);
-            }
-            $orderItem->save();
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Order autosaved successfully!',
-                'order_id' => $order->id,
-            ]);
-        } catch (\Throwable $th) {
-            //throw $th;
-            return $th->getMessage();
         }
     }
     public function order_received(Request $request)

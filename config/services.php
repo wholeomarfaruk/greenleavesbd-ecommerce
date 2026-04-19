@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'bkash' => [
+        'number' => env('BKASH_MANUAL_NUMBER', '+8801800000000'),
+    ],
+
 ];

@@ -183,60 +183,8 @@
                                         @endif
 
                                     </p>
-                                    @if ($order->fraud_check_steadfast)
-                                        <strong>SteadFast Customer Check:</strong>
-                                        <p>
-                                            Total Order : {{ $order->fraud_check_steadfast['total'] ?? 0 }}<br>
-                                            Received Order : {{ $order->fraud_check_steadfast['success'] ?? 0 }}<br>
-                                            Returned Order : {{ $order->fraud_check_steadfast['cancel'] ?? 0 }}<br>
-                                            Score:
-                                            @php
-                                                $success_steadfast = $order->fraud_check_steadfast['success'] ?? 0;
-                                                $total_steadfast = $order->fraud_check_steadfast['total'] ?? 0;
-
-                                                $score_steadfast =
-                                                    $total_steadfast > 0
-                                                        ? ($success_steadfast / $total_steadfast) * 100
-                                                        : 0;
-                                                $fraud_score_steadfast = number_format($score_steadfast, 2);
-                                            @endphp
-                                        </p>
-                                    @endif
-                                    <div class="progress">
-                                        <div class="progress-bar bg-{{ $fraud_score_steadfast >= 70 ? 'success' : 'danger' }}"
-                                            role="progressbar"
-                                            style="width: {{ $fraud_score_steadfast > 100 ? 100 : $fraud_score_steadfast }}%;"
-                                            aria-valuenow="{{ $fraud_score_steadfast > 100 ? 100 : $fraud_score_steadfast }}"
-                                            aria-valuemin="0" aria-valuemax="100">
-                                            {{ $fraud_score_steadfast > 100 ? 100 : $fraud_score_steadfast }}%
-                                        </div>
-                                    </div>
-                                    @if ($order->fraud_check_pathao)
-                                        <strong>Pathao Customer Check:</strong>
-                                        <p>
-                                            Total Order : {{ $order->fraud_check_pathao['total'] ?? 0 }}<br>
-                                            Received Order : {{ $order->fraud_check_pathao['success'] ?? 0 }}<br>
-                                            Returned Order : {{ $order->fraud_check_pathao['cancel'] ?? 0 }}<br>
-                                            Score:
-                                            @php
-                                                $success_pathao = $order->fraud_check_pathao['success'] ?? 0;
-                                                $total_pathao = $order->fraud_check_pathao['total'] ?? 0;
-
-                                                $score_pathao =
-                                                    $total_pathao > 0 ? ($success_pathao / $total_pathao) * 100 : 0;
-                                                $fraud_score_pathao = number_format($score_pathao, 2);
-                                            @endphp
-                                        </p>
-                                    @endif
-                                    <div class="progress">
-                                        <div class="progress-bar bg-{{ $fraud_score_pathao >= 70 ? 'success' : 'danger' }}"
-                                            role="progressbar"
-                                            style="width: {{ $fraud_score_pathao > 100 ? 100 : $fraud_score_pathao }}%;"
-                                            aria-valuenow="{{ $fraud_score_pathao > 100 ? 100 : $fraud_score_pathao }}"
-                                            aria-valuemin="0" aria-valuemax="100">
-                                            {{ $fraud_score_pathao > 100 ? 100 : $fraud_score_pathao }}%
-                                        </div>
-                                    </div>
+                                  
+                                  
 
 
                                     <p>Delivery Area :

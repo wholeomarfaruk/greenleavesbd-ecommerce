@@ -294,7 +294,7 @@
                                         করুন {{ $product?->stock_status == 'out_of_stock' ? '(স্টক শেষ)' : '' }}</button>
                                 </div>
                                 <div class="col-6">
-                                    <button id="order-button" type="button"
+                                    <button id="order-button" type="button" onclick="cartQueue.addToCart({{ $product->id }}, $('[name=quantity]').val())"
                                         {{ $product?->stock_status == 'out_of_stock' ? 'disabled' : '' }}
                                         class="btn btn-primary bg-primary-color mb-3 w-100 fw-bold fs-5 py-2"><i class="fa-solid fa-cart-plus"></i> কার্টে যুক্ত করুন {{ $product?->stock_status == 'out_of_stock' ? '(স্টক শেষ)' : '' }}</button>
                                 </div>
@@ -537,7 +537,7 @@
                         price: pamount, // Number, two decimals, required
                         quantity: 1, // Integer, required
                         item_category: "Pants", // String, optional but advised if available
-                        item_brand: 'YoungStar Life', // String, optional, might be useful if you sell different brands
+                        item_brand: 'Geen Leaves BD', // String, optional, might be useful if you sell different brands
                         item_variant: null // String, optional
                     }]
                 },
@@ -581,7 +581,7 @@
                             price: pamount, // Number, two decimals, required
                             quantity: quantity, // Integer, required
                             item_category: "Pants", // String, optional but advised if available
-                            item_brand: 'YoungStar Life', // String, optional, might be useful if you sell different brands
+                            item_brand: 'Geen Leaves BD', // String, optional, might be useful if you sell different brands
                             item_variant: size // String, optional
                         }]
                     },
@@ -627,39 +627,4 @@
 
         })
     </script>
-    {{-- <script>
-        $(window).on('beforeunload', function() {
-            var name = $("input[name='name']").val();
-            var phone = $("input[name='phone']").val();
-            var address = $("textarea[name='address']").val();
-            var size = $("input[name='size").val();
-            var product_id = $("input[name='product_id").val();
-            var quantity = $("input[name='quantity").val();
-            var delivery_area = $("select[name='delivery_area").val();
-            var token = "{{ csrf_token() }}";
-            console.log("token: " + token);
-            var order_data = {
-                name: name,
-                phone: phone,
-                address: address,
-                size: size,
-                product_id: product_id,
-                quantity: quantity,
-                delivery_area: delivery_area,
-                XSRF_TOKEN: token,
-            }
-            fetch('/cart/autosave', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': token
-                },
-
-                body: JSON.stringify(order_data)
-            })
-
-            // event.preventDefault();
-
-        })
-    </script> --}}
 @endpush

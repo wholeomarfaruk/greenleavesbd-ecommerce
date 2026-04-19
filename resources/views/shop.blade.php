@@ -152,15 +152,13 @@
 
                                     <h1 class="p-title">{{ $product->name }}</h1>
                                 </a>
-                                <a href="#">
-                                    <p class="p-description">
-                                        বিস্তারিত দেখুন
-                                    </p>
-                                </a>
+                                
                             </div>
-                            <div class="p-btn-group">
+                              <div class="p-btn-group d-flex gap-2">
                                 <a class="btn btn-primary w-100 d-block"
                                     href="{{ route('product.show', $product->slug) }}">Buy Now</a>
+                                <button class="btn btn-primary w-100 d-block "  onclick="cartQueue.addToCart({{ $product->id }}, 1)"
+                                    href="#"> Add to Cart</button>
                             </div>
 
 

@@ -373,17 +373,19 @@ body {
 /* header-1 start */
 header .middle-navbar, .footer_top{
     background: #6a017d;
-background: linear-gradient(90deg, rgba(106, 1, 125, 1) 0%, rgba(247, 178, 230, 1) 100%);
+background: linear-gradient(90deg, rgb(251, 227, 192) 50%, #198754a1 60%, rgb(251, 227, 192) 100%);
 }
 .header_top{
     background-color: var(--black);
     text-align: center;
     padding: 15px 0 15px;
+    background: linear-gradient(90deg, #036a3ac4 20%, #0e7c49 50%, #036a3a 70%, #198754a1 100%);
 }
 .header_top p{
     font-size: 18px;
     margin: 0;
     color: var(--white);
+    font-weight: 500;
 }
 /* header-1 end */
 
@@ -626,12 +628,12 @@ background: linear-gradient(90deg, rgba(106, 1, 125, 1) 0%, rgba(247, 178, 230, 
 }
 .footer_item h2{
     font-size: 22px;
-    color: #fff;
+    color: #000000;
 }
 .footer_item p{
     font-size: 14px;
     width: 300px;
-    color: #fff;
+    color: #000000;
 
 }
 .footer_item ul{
@@ -643,7 +645,7 @@ background: linear-gradient(90deg, rgba(106, 1, 125, 1) 0%, rgba(247, 178, 230, 
 .footer_item ul li a{
     font-size: 14px;
     text-decoration: none;
-      color: #fff;
+      color: #000000;
 
 }
 .footer_item p span{}
@@ -654,7 +656,7 @@ background: linear-gradient(90deg, rgba(106, 1, 125, 1) 0%, rgba(247, 178, 230, 
 }
 .footer_item i{
     font-size: 24px;
-        color: #fff;
+        color: #000000;
 
     margin: 2px;
 }

@@ -19,6 +19,7 @@ use App\Models\Coupon;
 use App\Models\Customer;
 use App\Models\Device;
 use App\Models\Media;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use Intervention\Image\Laravel\Facades\Image;
 use Illuminate\Support\Facades\File;
@@ -29,20 +30,24 @@ class AdminController extends Controller
 {
     public function index()
     {
-        //pending
-        $pending_orders = Order::where('status', 'pending')->count();
-        $pending_orders_sum = Order::where('status', 'pending')->sum('total');
-        //delivered
-        $delivered_orders = Order::where('status', 'delivered')->count();
-        $delivered_orders_sum = Order::where('status', 'delivered')->sum('total');
-        //cancelled
-        $cancelled_orders = Order::where('status', 'cancelled')->count();
-        $cancelled_orders_sum = Order::where('status', 'cancelled')->sum('total');
-        //total
-        $total_orders = Order::count();
-        $total_orders_sum = Order::sum('total');
+        $ordersQuery = Order::query()->where('status', '!=', 'autosave');
 
-        $orders = Order::orderBy('created_at', 'desc')->limit(10)->get();
+        $pending_orders = (clone $ordersQuery)->where('status', 'pending')->count();
+        $pending_orders_sum = (clone $ordersQuery)->where('status', 'pending')->sum('total');
+
+        $delivered_orders = (clone $ordersQuery)->where('status', 'delivered')->count();
+        $delivered_orders_sum = (clone $ordersQuery)->where('status', 'delivered')->sum('total');
+
+        $cancelled_orders = (clone $ordersQuery)->where('status', 'cancelled')->count();
+        $cancelled_orders_sum = (clone $ordersQuery)->where('status', 'cancelled')->sum('total');
+
+        $total_orders = $this->activeOrdersQuery()->count();
+        $total_orders_sum = $this->activeOrdersQuery()->sum('total');
+
+        $orders = $this->activeOrdersQuery()
+            ->orderBy('created_at', 'desc')
+            ->limit(10)
+            ->get();
 
         return view('admin.index', compact('pending_orders', 'delivered_orders', 'cancelled_orders', 'total_orders', 'pending_orders_sum', 'delivered_orders_sum', 'cancelled_orders_sum', 'total_orders_sum', 'orders'));
     }
@@ -478,460 +483,221 @@ class AdminController extends Controller
         $coupon->delete();
         return redirect()->route('admin.coupons')->with('status', 'Coupon Deleted Successfully');
     }
+    protected function availableOrderStatuses(): array
+    {
+        return [
+            'pending',
+            'confirmed',
+            'processing',
+            'ready',
+            'in_review',
+            'in_transit',
+            'delivered',
+            'delivery_in_review',
+            'on_hold',
+            'cancelled',
+            'returned',
+            'deleted',
+        ];
+    }
+
+    protected function activeOrdersQuery(): Builder
+    {
+        return Order::query()->where(function (Builder $builder): void {
+            $builder->whereNull('status')
+                ->orWhereNotIn('status', ['deleted', 'autosave']);
+        });
+    }
+
+    protected function orderStatusGroups()
+    {
+        return Order::query()
+            ->whereNotNull('status')
+            ->whereNotIn('status', ['deleted', 'autosave'])
+            ->select('status')
+            ->selectRaw('COUNT(*) as count')
+            ->groupBy('status')
+            ->get();
+    }
+
+    protected function buildOrderQuery(Request $request, ?string $fixedStatus = null): Builder
+    {
+        $search = trim((string) $request->input('search'));
+        $status = $fixedStatus ?: trim((string) $request->input('order_status'));
+
+        $query = Order::query()
+            ->with(['items.product', 'customer', 'delivery_area', 'device'])
+            ->withCount('items')
+            ->orderByDesc('created_at');
+
+        if ($fixedStatus === 'deleted') {
+            $query->where('status', 'deleted');
+        } else {
+            $query->where(function (Builder $builder): void {
+                $builder->whereNull('status')
+                    ->orWhereNotIn('status', ['deleted', 'autosave']);
+            });
+
+            if ($status !== '' && in_array($status, $this->availableOrderStatuses(), true) && $status !== 'deleted') {
+                $query->where('status', $status);
+            }
+        }
+
+        if ($search !== '') {
+            $query->where(function (Builder $builder) use ($search): void {
+                $builder->where('id', 'like', '%' . $search . '%')
+                    ->orWhere('order_number', 'like', '%' . $search . '%')
+                    ->orWhere('name', 'like', '%' . $search . '%')
+                    ->orWhere('full_name', 'like', '%' . $search . '%')
+                    ->orWhere('phone', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orWhere('transaction_id', 'like', '%' . $search . '%')
+                    ->orWhere('payment_method', 'like', '%' . $search . '%')
+                    ->orWhere('payment_status', 'like', '%' . $search . '%')
+                    ->orWhere('consignment_id', 'like', '%' . $search . '%')
+                    ->orWhere('address', 'like', '%' . $search . '%')
+                    ->orWhereHas('items.product', function (Builder $productQuery) use ($search): void {
+                        $productQuery->where('name', 'like', '%' . $search . '%');
+                    });
+            });
+        }
+
+        return $query;
+    }
+
+    protected function renderOrdersPage(Request $request, ?string $fixedStatus = null, string $pageTitle = 'Orders')
+    {
+        $orders = $this->buildOrderQuery($request, $fixedStatus)
+            ->paginate(20)
+            ->withQueryString();
+
+        $status_group = $this->orderStatusGroups();
+        $orders_count = $this->activeOrdersQuery()->count();
+        $deleted_orders_count = Order::query()->where('status', 'deleted')->count();
+        $activeStatus = $fixedStatus ?: trim((string) $request->input('order_status'));
+        $search = trim((string) $request->input('search'));
+
+        return view('admin.orders.index', compact(
+            'orders',
+            'status_group',
+            'orders_count',
+            'deleted_orders_count',
+            'activeStatus',
+            'search',
+            'pageTitle',
+        ));
+    }
+
+    protected function applyOrderStatus(Order $order, string $status): void
+    {
+        $order->status = $status;
+
+        if ($status === 'delivered' && empty($order->delivery_date)) {
+            $order->delivery_date = Carbon::now();
+        }
+
+        if ($status === 'delivered' && ($order->payment_method ?? 'cod') === 'cod' && $order->payment_status !== 'paid') {
+            $order->payment_status = 'paid';
+        }
+
+        if ($status === 'cancelled' && empty($order->cancelled_date)) {
+            $order->cancelled_date = Carbon::now();
+        }
+
+        $order->save();
+    }
+
     public function orders(Request $request)
     {
-        if ($request->has('search')) {
-            $search = $request->search;
-            $orders = Order::whereNot('status', 'deleted')->where('name', 'LIKE', '%' . $search . '%')
-                ->orWhere('phone', 'LIKE', '%' . $search . '%')
-                ->orWhere('id', 'LIKE', '%' . $search . '%')
-                ->orWhere('consignment_id', 'LIKE', '%' . $search . '%')
-                ->orderBy('created_at', 'desc')
-                ->paginate(20);
-
-        } elseif ($request->has('order_status')) {
-            $status = $request->order_status;
-            $orders = Order::whereNot('status', 'deleted')->where('status', $status)->orderBy('created_at', 'desc')->paginate(20);
-        } else {
-            $orders = Order::whereNot('status', 'deleted')->orderBy('created_at', 'desc')->paginate(20);
-
-        }
-
-        $status_group = Order::whereNot('status', 'deleted')->select('status')
-            ->selectRaw('COUNT(*) as count')
-            ->groupBy('status')
-            ->get();
-        $orders_count = Order::count();
-
-        return view('admin.orders', compact('orders', 'status_group', 'orders_count'));
+        return $this->renderOrdersPage($request, null, 'All Orders');
     }
+
     public function ordersPending(Request $request)
     {
-        if ($request->has('search')) {
-            $search = $request->search;
-            $orders = Order::whereNot('status', 'deleted')->where('name', 'LIKE', '%' . $search . '%')
-                ->orWhere('status', 'pending')
-                ->orWhere('phone', 'LIKE', '%' . $search . '%')
-
-                ->orWhere('id', 'LIKE', '%' . $search . '%')
-                ->orWhere('consignment_id', 'LIKE', '%' . $search . '%')
-                ->orderBy('created_at', 'desc')
-                ->paginate(20);
-
-        } elseif ($request->has('order_status')) {
-            $status = $request->order_status;
-            $orders = Order::where('status', 'pending')->where('status', $status)->orderBy('created_at', 'desc')->paginate(20);
-        } else {
-            $orders = Order::where('status', 'pending')->orderBy('created_at', 'desc')->paginate(20);
-
-        }
-
-        $status_group = Order::whereNot('status', 'deleted')->select('status')
-            ->selectRaw('COUNT(*) as count')
-            ->groupBy('status')
-            ->get();
-        $orders_count = Order::count();
-
-        return view('admin.orders-pending', compact('orders', 'status_group', 'orders_count'));
+        return $this->renderOrdersPage($request, 'pending', 'Pending Orders');
     }
+
     public function ordersConfirmed(Request $request)
     {
-        if ($request->has('search')) {
-            $search = $request->search;
-            $orders = Order::whereNot('status', 'deleted')->where('name', 'LIKE', '%' . $search . '%')
-                ->orWhere('status', 'confirmed')
-                ->orWhere('phone', 'LIKE', '%' . $search . '%')
-
-                ->orWhere('id', 'LIKE', '%' . $search . '%')
-                ->orWhere('consignment_id', 'LIKE', '%' . $search . '%')
-                ->orderBy('created_at', 'desc')
-                ->paginate(20);
-
-        } elseif ($request->has('order_status')) {
-            $status = $request->order_status;
-            $orders = Order::where('status', 'confirmed')->where('status', $status)->orderBy('created_at', 'desc')->paginate(20);
-        } else {
-            $orders = Order::where('status', 'confirmed')->orderBy('created_at', 'desc')->paginate(20);
-
-        }
-
-        $status_group = Order::whereNot('status', 'deleted')->select('status')
-            ->selectRaw('COUNT(*) as count')
-            ->groupBy('status')
-            ->get();
-        $orders_count = Order::count();
-
-        return view('admin.orders-confirmed', compact('orders', 'status_group', 'orders_count'));
+        return $this->renderOrdersPage($request, 'confirmed', 'Confirmed Orders');
     }
+
     public function ordersProcessing(Request $request)
     {
-        if ($request->has('search')) {
-            $search = $request->search;
-            $orders = Order::whereNot('status', 'deleted')->where('name', 'LIKE', '%' . $search . '%')
-                ->orWhere('status', 'processing')
-                ->orWhere('phone', 'LIKE', '%' . $search . '%')
-
-                  ->orWhere('id', 'LIKE', '%' . $search . '%')
-                ->orWhere('consignment_id', 'LIKE', '%' . $search . '%')
-                ->orderBy('created_at', 'desc')
-                ->paginate(20);
-
-        } elseif ($request->has('order_status')) {
-            $status = $request->order_status;
-            $orders = Order::where('status', 'processing')->where('status', $status)->orderBy('created_at', 'desc')->paginate(20);
-        } else {
-            $orders = Order::where('status', 'processing')->orderBy('created_at', 'desc')->paginate(20);
-
-        }
-
-        $status_group = Order::whereNot('status', 'deleted')->select('status')
-            ->selectRaw('COUNT(*) as count')
-            ->groupBy('status')
-            ->get();
-        $orders_count = Order::count();
-
-        return view('admin.orders-processing', compact('orders', 'status_group', 'orders_count'));
+        return $this->renderOrdersPage($request, 'processing', 'Processing Orders');
     }
+
     public function ordersReady(Request $request)
     {
-        if ($request->has('search')) {
-            $search = $request->search;
-            $orders = Order::whereNot('status', 'deleted')->where('name', 'LIKE', '%' . $search . '%')
-                ->orWhere('status', 'ready')
-                ->orWhere('phone', 'LIKE', '%' . $search . '%')
-
-                 ->orWhere('id', 'LIKE', '%' . $search . '%')
-                ->orWhere('consignment_id', 'LIKE', '%' . $search . '%')
-                ->orderBy('created_at', 'desc')
-                ->paginate(20);
-
-        } elseif ($request->has('order_status')) {
-            $status = $request->order_status;
-            $orders = Order::where('status', 'ready')->where('status', $status)->orderBy('created_at', 'desc')->paginate(20);
-        } else {
-            $orders = Order::where('status', 'ready')->orderBy('created_at', 'desc')->paginate(20);
-
-        }
-
-        $status_group = Order::whereNot('status', 'deleted')->select('status')
-            ->selectRaw('COUNT(*) as count')
-            ->groupBy('status')
-            ->get();
-        $orders_count = Order::count();
-
-        return view('admin.orders-ready', compact('orders', 'status_group', 'orders_count'));
+        return $this->renderOrdersPage($request, 'ready', 'Ready Orders');
     }
+
     public function ordersInReview(Request $request)
     {
-        if ($request->has('search')) {
-            $search = $request->search;
-            $orders = Order::whereNot('status', 'deleted')->where('name', 'LIKE', '%' . $search . '%')
-                ->orWhere('status', 'in_review')
-                ->orWhere('phone', 'LIKE', '%' . $search . '%')
-
-                    ->orWhere('id', 'LIKE', '%' . $search . '%')
-                ->orWhere('consignment_id', 'LIKE', '%' . $search . '%')
-                ->orderBy('created_at', 'desc')
-                ->paginate(20);
-
-        } elseif ($request->has('order_status')) {
-            $status = $request->order_status;
-            $orders = Order::where('status', 'in_review')->where('status', $status)->orderBy('created_at', 'desc')->paginate(20);
-        } else {
-            $orders = Order::where('status', 'in_review')->orderBy('created_at', 'desc')->paginate(20);
-
-        }
-
-        $status_group = Order::whereNot('status', 'deleted')->select('status')
-            ->selectRaw('COUNT(*) as count')
-            ->groupBy('status')
-            ->get();
-        $orders_count = Order::count();
-
-        return view('admin.orders-in_review', compact('orders', 'status_group', 'orders_count'));
+        return $this->renderOrdersPage($request, 'in_review', 'In Review Orders');
     }
+
     public function ordersInTransit(Request $request)
     {
-        if ($request->has('search')) {
-            $search = $request->search;
-            $orders = Order::whereNot('status', 'deleted')->where('name', 'LIKE', '%' . $search . '%')
-                ->orWhere('status', 'in_transit')
-                ->orWhere('phone', 'LIKE', '%' . $search . '%')
-
-                 ->orWhere('id', 'LIKE', '%' . $search . '%')
-                ->orWhere('consignment_id', 'LIKE', '%' . $search . '%')
-                ->orderBy('created_at', 'desc')
-                ->paginate(20);
-
-        } elseif ($request->has('order_status')) {
-            $status = $request->order_status;
-            $orders = Order::where('status', 'in_transit')->where('status', $status)->orderBy('created_at', 'desc')->paginate(20);
-        } else {
-            $orders = Order::where('status', 'in_transit')->orderBy('created_at', 'desc')->paginate(20);
-
-        }
-
-        $status_group = Order::whereNot('status', 'deleted')->select('status')
-            ->selectRaw('COUNT(*) as count')
-            ->groupBy('status')
-            ->get();
-        $orders_count = Order::count();
-
-        return view('admin.orders-in_transit', compact('orders', 'status_group', 'orders_count'));
+        return $this->renderOrdersPage($request, 'in_transit', 'In Transit Orders');
     }
+
     public function ordersDelivered(Request $request)
     {
-        if ($request->has('search')) {
-            $search = $request->search;
-            $orders = Order::whereNot('status', 'deleted')->where('name', 'LIKE', '%' . $search . '%')
-                ->orWhere('status', 'delivered')
-                ->orWhere('phone', 'LIKE', '%' . $search . '%')
-
-                  ->orWhere('id', 'LIKE', '%' . $search . '%')
-                ->orWhere('consignment_id', 'LIKE', '%' . $search . '%')
-                ->orderBy('created_at', 'desc')
-                ->paginate(20);
-
-        } elseif ($request->has('order_status')) {
-            $status = $request->order_status;
-            $orders = Order::where('status', 'delivered')->where('status', $status)->orderBy('created_at', 'desc')->paginate(20);
-        } else {
-            $orders = Order::where('status', 'delivered')->orderBy('created_at', 'desc')->paginate(20);
-
-        }
-
-        $status_group = Order::whereNot('status', 'deleted')->select('status')
-            ->selectRaw('COUNT(*) as count')
-            ->groupBy('status')
-            ->get();
-        $orders_count = Order::count();
-
-        return view('admin.orders-delivered', compact('orders', 'status_group', 'orders_count'));
+        return $this->renderOrdersPage($request, 'delivered', 'Delivered Orders');
     }
+
     public function ordersDeliveryInReview(Request $request)
     {
-        if ($request->has('search')) {
-            $search = $request->search;
-            $orders = Order::whereNot('status', 'deleted')->where('name', 'LIKE', '%' . $search . '%')
-                ->orWhere('status', 'delivery_in_review')
-                ->orWhere('phone', 'LIKE', '%' . $search . '%')
-
-                 ->orWhere('id', 'LIKE', '%' . $search . '%')
-                ->orWhere('consignment_id', 'LIKE', '%' . $search . '%')
-                ->orderBy('created_at', 'desc')
-                ->paginate(20);
-
-        } elseif ($request->has('order_status')) {
-            $status = $request->order_status;
-            $orders = Order::where('status', 'delivery_in_review')->where('status', $status)->orderBy('created_at', 'desc')->paginate(20);
-        } else {
-            $orders = Order::where('status', 'delivery_in_review')->orderBy('created_at', 'desc')->paginate(20);
-
-        }
-
-        $status_group = Order::whereNot('status', 'deleted')->select('status')
-            ->selectRaw('COUNT(*) as count')
-            ->groupBy('status')
-            ->get();
-        $orders_count = Order::count();
-
-        return view('admin.orders-delivery_in_review', compact('orders', 'status_group', 'orders_count'));
+        return $this->renderOrdersPage($request, 'delivery_in_review', 'Delivery In Review Orders');
     }
+
     public function ordersOnHold(Request $request)
     {
-        if ($request->has('search')) {
-            $search = $request->search;
-            $orders = Order::whereNot('status', 'deleted')->where('name', 'LIKE', '%' . $search . '%')
-                ->orWhere('status', 'on_hold')
-                ->orWhere('phone', 'LIKE', '%' . $search . '%')
-
-                   ->orWhere('id', 'LIKE', '%' . $search . '%')
-                ->orWhere('consignment_id', 'LIKE', '%' . $search . '%')
-                ->orderBy('created_at', 'desc')
-                ->paginate(20);
-
-        } elseif ($request->has('order_status')) {
-            $status = $request->order_status;
-            $orders = Order::where('status', 'on_hold')->where('status', $status)->orderBy('created_at', 'desc')->paginate(20);
-        } else {
-            $orders = Order::where('status', 'on_hold')->orderBy('created_at', 'desc')->paginate(20);
-
-        }
-
-        $status_group = Order::whereNot('status', 'deleted')->select('status')
-            ->selectRaw('COUNT(*) as count')
-            ->groupBy('status')
-            ->get();
-        $orders_count = Order::count();
-
-        return view('admin.orders-on_hold', compact('orders', 'status_group', 'orders_count'));
+        return $this->renderOrdersPage($request, 'on_hold', 'On Hold Orders');
     }
+
     public function ordersCancelled(Request $request)
     {
-        if ($request->has('search')) {
-            $search = $request->search;
-            $orders = Order::whereNot('status', 'deleted')->where('name', 'LIKE', '%' . $search . '%')
-                ->orWhere('status', 'cancelled')
-                ->orWhere('phone', 'LIKE', '%' . $search . '%')
-
-                   ->orWhere('id', 'LIKE', '%' . $search . '%')
-                ->orWhere('consignment_id', 'LIKE', '%' . $search . '%')
-                ->orderBy('created_at', 'desc')
-                ->paginate(20);
-
-        } elseif ($request->has('order_status')) {
-            $status = $request->order_status;
-            $orders = Order::where('status', 'cancelled')->where('status', $status)->orderBy('created_at', 'desc')->paginate(20);
-        } else {
-            $orders = Order::where('status', 'cancelled')->orderBy('created_at', 'desc')->paginate(20);
-
-        }
-
-        $status_group = Order::whereNot('status', 'deleted')->select('status')
-            ->selectRaw('COUNT(*) as count')
-            ->groupBy('status')
-            ->get();
-        $orders_count = Order::count();
-
-        return view('admin.orders-cancelled', compact('orders', 'status_group', 'orders_count'));
+        return $this->renderOrdersPage($request, 'cancelled', 'Cancelled Orders');
     }
+
     public function ordersReturned(Request $request)
     {
-        if ($request->has('search')) {
-            $search = $request->search;
-            $orders = Order::whereNot('status', 'deleted')->where('name', 'LIKE', '%' . $search . '%')
-                ->orWhere('status', 'returned')
-                ->orWhere('phone', 'LIKE', '%' . $search . '%')
-
-                ->orWhere('id', 'LIKE', '%' . $search . '%')
-                ->orWhere('consignment_id', 'LIKE', '%' . $search . '%')
-                ->orderBy('created_at', 'desc')
-                ->paginate(20);
-
-        } elseif ($request->has('order_status')) {
-            $status = $request->order_status;
-            $orders = Order::where('status', 'returned')->where('status', $status)->orderBy('created_at', 'desc')->paginate(20);
-        } else {
-            $orders = Order::where('status', 'returned')->orderBy('created_at', 'desc')->paginate(20);
-
-        }
-
-        $status_group = Order::whereNot('status', 'deleted')->select('status')
-            ->selectRaw('COUNT(*) as count')
-            ->groupBy('status')
-            ->get();
-        $orders_count = Order::count();
-
-        return view('admin.orders-returned', compact('orders', 'status_group', 'orders_count'));
+        return $this->renderOrdersPage($request, 'returned', 'Returned Orders');
     }
+
     public function deletedOrders(Request $request)
     {
-        if ($request->has('search')) {
-            $search = $request->search;
-            $orders = Order::where('status', 'deleted')->where('name', 'LIKE', '%' . $search . '%')
-                ->orWhere('phone', 'LIKE', '%' . $search . '%')
-
-                  ->orWhere('id', 'LIKE', '%' . $search . '%')
-                ->orWhere('consignment_id', 'LIKE', '%' . $search . '%')
-                ->orderBy('created_at', 'desc')
-                ->paginate(20);
-        } else {
-            $orders = Order::where('status', 'deleted')->orderBy('created_at', 'desc')->paginate(20);
-        }
-        $status_group = Order::select('status')
-            ->selectRaw('COUNT(*) as count')
-            ->groupBy('status')
-            ->get();
-        $orders_count = Order::count();
-        return view('admin.deleted-orders', compact('orders', 'status_group', 'orders_count'));
+        return $this->renderOrdersPage($request, 'deleted', 'Deleted Orders');
     }
 
     public function orderDetails($id)
     {
-        $order = Order::find($id);
-        if (!$order) {
-            abort(404);
-        }
-        if ($order) {
+        $order = Order::query()
+            ->with(['items.product', 'customer', 'delivery_area', 'device', 'user'])
+            ->findOrFail($id);
 
-            //fraud check steadfst
-            $phone = $order->phone;
-            if (strlen($phone) == 11) {
-
-                try {
-                    $order->fraud_check_steadfast = collect((new SteadfastService())->steadfast($phone));
-                } catch (\Throwable $e) {
-                    $order->fraud_check_steadfast = collect(['error' => 'Steadfast check failed']);
-                }
-
-                $order->fraud_check_pathao = collect((new PathaoService())->pathao($phone));
-                // dd($order->fraud_check_pathao);
-            }
-        }
-        // dd($order->fraud_check);
-        $orderItems = Order_Item::where('order_id', $id)->paginate(20);
-        $products = products::all();
-        return view('admin.order-details', compact('order', 'orderItems', 'products'))->with('title', 'Order Details');
+        return view('admin.orders.show', [
+            'order' => $order,
+            'orderItems' => $order->items,
+        ])->with('title', 'Order Details');
     }
+
     public function orderStatusUpdate(Request $request)
     {
+        $validated = $request->validate([
+            'order_id' => 'required|exists:orders,id',
+            'status' => 'required|in:' . implode(',', $this->availableOrderStatuses()),
+        ]);
 
+        $order = Order::findOrFail($validated['order_id']);
 
-        $order = Order::find($request->order_id);
-        if ($order->status == $request->status) {
-
+        if ($order->status === $validated['status']) {
             return redirect()->route('admin.orders.details', $order->id)->with('status', 'Order Status Already Updated');
-
-        } else {
-            if ($request->status == 'pending') {
-                $order->status = $request->status;
-                $order->save();
-            }
-            if ($request->status == 'on_hold') {
-                $order->status = $request->status;
-                $order->save();
-            }
-            if ($request->status == 'confirmed') {
-                $order->status = $request->status;
-                $order->save();
-            }
-            if ($request->status == 'processing') {
-                $order->status = $request->status;
-                $order->save();
-            }
-            if ($request->status == 'in_transit') {
-                $order->status = $request->status;
-                $order->save();
-            }
-            if ($request->status == 'delivered') {
-                $order->status = $request->status;
-                $order->delivery_date = Carbon::now();
-                $order->is_paid = true;
-                $order->save();
-            }
-
-            if ($request->status == 'cancelled') {
-                $order->status = $request->status;
-                $order->cancelled_date = Carbon::now();
-                $order->save();
-            }
-
-            if ($request->status == 'returned') {
-                $order->status = $request->status;
-                $order->save();
-            }
-            if ($request->status == 'deleted') {
-                $order->status = $request->status;
-                $order->save();
-            }
-
-
-
         }
 
-
-
-
+        $this->applyOrderStatus($order, $validated['status']);
 
         return redirect()->route('admin.orders.details', $order->id)->with('status', 'Order Status Updated Successfully');
     }
@@ -939,11 +705,16 @@ class AdminController extends Controller
     public function ordersoftdelete($id)
     {
         $order = Order::find($id);
+        if (!$order) {
+            return redirect()->back()->with('error', 'Order not found');
+        }
+
         if ($order->status == 'deleted') {
             return redirect()->back()->with('status', 'Order Already Deleted');
         }
-        $order->status = 'deleted';
-        $order->save();
+
+        $this->applyOrderStatus($order, 'deleted');
+
         return redirect()->back()->with('status', 'Order Deleted Successfully');
     }
     public function deleteOrder($id)
@@ -978,11 +749,18 @@ class AdminController extends Controller
         // $order->Order_Item()
         $orderedProducts = products::whereIn('id', $request->products)->get();
         foreach ($orderedProducts as $orderedProduct) {
+            $price = (float) ($orderedProduct->discount_price ?? $orderedProduct->price);
+            $quantity = (int) ($request->order_items[$orderedProduct->id]['quantity'] ?? 1);
+
             $orderItem = new Order_Item();
             $orderItem->order_id = $order->id;
             $orderItem->product_id = $orderedProduct->id;
-            $orderItem->quantity = $request->order_items[$orderedProduct->id]['quantity'];
-            $orderItem->price = $orderedProduct->price;
+            $orderItem->product_name = $orderedProduct->name;
+            $orderItem->product_image = $orderedProduct->image ? 'storage/images/products/thumbnails/' . $orderedProduct->image : null;
+            $orderItem->quantity = $quantity;
+            $orderItem->unit_price = $price;
+            $orderItem->price = $price;
+            $orderItem->line_total = round($price * $quantity, 2);
             $orderItem->options = json_encode(['size' => $request->order_items[$orderedProduct->id]['size']]);
             $orderItem->save();
         }
@@ -1009,11 +787,39 @@ class AdminController extends Controller
         if (!$order) {
             return redirect()->back()->with('error', 'Order not found');
         }
-        $order->name = $request->name;
-        $order->phone = $request->phone;
-        $order->address = $request->address;
-        $order->note = $request->note;
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'email' => 'nullable|email|max:255',
+            'address' => 'required|string',
+            'city' => 'nullable|string|max:255',
+            'area' => 'nullable|string|max:255',
+            'note' => 'nullable|string',
+            'payment_method' => 'nullable|in:cod,bkash',
+            'payment_status' => 'nullable|in:unpaid,pending,paid,failed',
+            'transaction_id' => 'nullable|string|max:255|required_if:payment_method,bkash',
+        ]);
+
+        $paymentMethod = $validated['payment_method'] ?? ($order->payment_method ?: 'cod');
+        $paymentStatus = $validated['payment_status']
+            ?? ($order->payment_status ?: ($paymentMethod === 'bkash' ? 'pending' : 'unpaid'));
+
+        $order->name = $validated['name'];
+        $order->full_name = $validated['name'];
+        $order->phone = $validated['phone'];
+        $order->email = $validated['email'] ?? null;
+        $order->address = $validated['address'];
+        $order->city = $validated['city'] ?? null;
+        $order->area = $validated['area'] ?? null;
+        $order->note = $validated['note'] ?? null;
+        $order->payment_method = $paymentMethod;
+        $order->payment_status = $paymentStatus;
+        $order->transaction_id = $paymentMethod === 'bkash'
+            ? ($validated['transaction_id'] ?? null)
+            : null;
         $order->save();
+
         return redirect()->back()->with('status', 'Order Details Updated Successfully');
     }
     public function deliveryAreas()
@@ -1278,55 +1084,30 @@ class AdminController extends Controller
 
     public function bulkOrderStatusUpdate(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'ids' => 'required|array|min:1',
+            'ids.*' => 'required|exists:orders,id',
+            'status' => 'required|in:' . implode(',', $this->availableOrderStatuses()),
+        ]);
 
-
-
-
-        foreach ($request->ids as $id) {
-            $order = Order::find($id);
-
-            if ($request->status == 'pending') {
-                $order->status = $request->status;
-                $order->save();
-            }
-            if ($request->status == 'on_hold') {
-                $order->status = $request->status;
-                $order->save();
-            }
-            if ($request->status == 'confirmed') {
-                $order->status = $request->status;
-                $order->save();
-            }
-            if ($request->status == 'processing') {
-                $order->status = $request->status;
-                $order->save();
-            }
-            if ($request->status == 'in_transit') {
-                $order->status = $request->status;
-                $order->save();
-            }
-            if ($request->status == 'delivered') {
-                $order->status = $request->status;
-                $order->delivery_date = Carbon::now();
-                $order->save();
-            }
-
-            if ($request->status == 'cancelled') {
-                $order->status = $request->status;
-                $order->cancelled_date = Carbon::now();
-                $order->save();
-            }
-
-            if ($request->status == 'returned') {
-                $order->status = $request->status;
-                $order->save();
-            }
-            if ($request->status == 'deleted') {
-                $order->status = $request->status;
-                $order->save();
-            }
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first(),
+            ], 422);
         }
-        return response()->json(['success' => 'Order Status Updated Successfully']);
+
+        $validated = $validator->validated();
+        $orders = Order::whereIn('id', $validated['ids'])->get();
+
+        foreach ($orders as $order) {
+            $this->applyOrderStatus($order, $validated['status']);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Order Status Updated Successfully',
+        ]);
     }
     public function orderBlacklistUpdate($id)
     {
