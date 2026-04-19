@@ -677,7 +677,7 @@ background: linear-gradient(90deg, rgb(251, 227, 192) 50%, #198754a1 60%, rgb(25
 /* footer start */
 .footer{
     padding: 15px 0;
-    background-color: #6a017d;
+     background: linear-gradient(90deg, #036a3ac4 20%, #0e7c49 50%, #036a3a 70%, #198754a1 100%);
 }
 .footer_bottom{
     justify-content: space-between;

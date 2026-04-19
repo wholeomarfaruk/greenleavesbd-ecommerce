@@ -210,7 +210,7 @@
     <footer class="footer">
         <div class="container">
             <div class="footer_bottom">
-                <p>Â© 2025. All right Reserved Developed By <a target="_blank"
+                <p>©Copyright 2026. All right Reserved Developed By <a target="_blank"
                         href="https://www.facebook.com/alimuzahid.dev/">Ali Muzahid</a></p>
                 <p class="footer_p2"></p>
             </div>
