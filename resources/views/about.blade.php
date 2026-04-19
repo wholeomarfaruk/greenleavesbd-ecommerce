@@ -3,7 +3,7 @@
 @section('content')
   <!--banner start-->
 <section class="about_banner" style="  background-image: linear-gradient(rgba(2, 44, 111, 0.6), rgba(2, 44, 111, 0.6)),
-                    url('{{ asset('frontend/img/banner/about_banner.jpg') }}');">
+                    url('{{ asset('frontend/img/banner/about_banner.jpeg') }}');">
   <div class="container">
     <div class="row justify-content-center">
      <div class="col-lg-6">

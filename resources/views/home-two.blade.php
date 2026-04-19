@@ -413,19 +413,8 @@
         </div>
     </section>
         <!--wholesale program start-->
-        <section class="wholesale" style="background:  url('{{ asset('frontend/img/banner/footer-banner.jpeg') }}');">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-5">
-                        <div class="wholesale_program">
-                            {{-- <h1>Our Wholesale Program</h1>
-                            <p>Join our Women’s Fashion Wholesale Program! Enjoy exclusive discounts, premium quality,
-                                and unbeatable deals. Sign up today and elevate your business!</p>
-                            <a href="#"><button>Contact Us</button></a> --}}
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <section class="d-block" >
+           <img style="width: 100%" src="{{ asset('frontend/img/banner/footer-banner.jpeg') }}" alt="">
         </section>
         <!--wholesale program end-->
         <!--services Section Start-->
