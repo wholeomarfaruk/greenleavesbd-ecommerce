@@ -67,7 +67,7 @@
                     </div>
 
                     <div class="icon_box">
-                        <a href="#"><i class="profile_icon fa-regular fa-circle-user"></i></a>
+                        {{-- <a href="#"><i class="profile_icon fa-regular fa-circle-user"></i></a> --}}
                         <a href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
                             aria-controls="offcanvasRight" role="button" class="position-relative">
                             <i class="cart_icon fa-solid fa-cart-arrow-down"></i>
