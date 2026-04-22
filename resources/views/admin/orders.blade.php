@@ -84,7 +84,7 @@
                    <div class="wg-box d-flex flex-row">
                     <form id="bulk-action-form" action="" class="d-inline" style="width:fit-content;">
 
-                        <div class="flex items-center flex-wrap justify-start gap20 mb-27">
+                        <div class="flex items-center flex-wrap justify-start gap20 ">
 
 
                             <button type="button" class="btn btn-outline-secondary" id="bulk-select-button">Select</button>

@@ -309,7 +309,7 @@
                                 <a class="btn btn-primary w-100 d-block"
                                     href="{{ route('product.show', $product->slug) }}">Buy Now</a>
                                 <button class="btn btn-primary w-100 d-block "  onclick="cartQueue.addToCart({{ $product->id }}, 1)"
-                                    href="#"> Add to Cart</button>
+                                    > Add to Cart</button>
                             </div>
 
 
