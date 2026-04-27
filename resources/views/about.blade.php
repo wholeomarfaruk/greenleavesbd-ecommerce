@@ -58,7 +58,7 @@
 <!--Our Management start-->
 <section class="our_management cm_padding">
  <div class="container">
-  <div class="row">
+  <div class="row g-4 justify-content-center">
    <div class="col-lg-12">
     <div class="management_head">
      <h1>Our Management</h1>
@@ -66,34 +66,49 @@
    </div>
    <div class="col-lg-3 col-md-6">
     <div class="management_member">
-     <img class="w-100" src="{{ asset('frontend/img/about/kamal_hossain.jpeg') }}" alt="Green Leaves">
+     <img class="w-100" src="{{ asset('frontend/img/about/1.png') }}" alt="Green Leaves">
      <h2>MD. KAMAL HOSSEN</h2>
-     <p>MANAGING DIRECTOR</p>
+     <p class="text-uppercase">MANAGING DIRECTOR</p>
+     <p class="text-uppercase">Sales & Admin</p>
+
      <p>kamalhos95@gmail.com</p>
     </div>
    </div>
    <div class="col-lg-3 col-md-6">
     <div class="management_member">
-     <img class="w-100" src="{{ asset('frontend/img/about/monira_islam.png') }}" alt="Green Leaves">
+     <img class="w-100" src="{{ asset('frontend/img/about/2.png') }}" alt="Green Leaves">
      <h2>MONIRA ISLAM BINTY</h2>
-     <p>DIRECTOR</p>
-     <p>bintyislam@gmail.com</p>
+     <p class="text-uppercase">DIRECTOR</p>
+     <p class="text-uppercase">Sales & Admin</p>
+     <p>bintyislam9@gmail.com</p>
     </div>
    </div>
    <div class="col-lg-3 col-md-6">
     <div class="management_member">
-     <img class="w-100" src="{{ asset('frontend/img/about/shariful_islam.jpeg') }}" alt="Green Leaves">
+     <img class="w-100" src="{{ asset('frontend/img/about/4.png') }}" alt="Green Leaves">
      <h2>MD SHARIFUL ISLAM</h2>
-     <p>AREA MANAGER</p>
+     <p class="text-uppercase">Assistant Manager</p>
+     <p class="text-uppercase">Accounts & Admin</p>
      <p>sharifu6350@gmail.com</p>
     </div>
    </div>
    <div class="col-lg-3 col-md-6">
     <div class="management_member">
-     <img class="w-100" src="{{ asset('frontend/img/about/mehedi_hasan.jpeg') }}" alt="Green Leaves">
+     <img class="w-100" src="{{ asset('frontend/img/about/5.png') }}" alt="Green Leaves">
      <h2>MEHEDI HASAN</h2>
-     <p>AREA MANAGER</p>
-     <p>mehedihasan@gmail.com</p>
+     <p class="text-uppercase">AREA MANAGER</p>
+     <p class="text-uppercase">Sales & Marketing</p>
+
+     <p >mehedihasan@gmail.com</p>
+    </div>
+   </div>
+   <div class="col-lg-3 col-md-6">
+    <div class="management_member">
+     <img class="w-100" src="{{ asset('frontend/img/about/3.png') }}" alt="Green Leaves">
+     <h2>MD NASIR UDDIN</h2>
+     <p class="text-uppercase">SR. Area Sales Manager</p>
+     <p class="text-uppercase">Sales & Marketing</p>
+     <p>litonnasir02@gmail.com</p>
     </div>
    </div>
   </div>

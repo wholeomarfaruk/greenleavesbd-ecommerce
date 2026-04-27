@@ -139,7 +139,7 @@
     <main id="Content-body">
         @yield('content')
     </main>
-
+    
     <footer class="footer_top">
         <div class="container">
             <div class="row">
@@ -147,7 +147,7 @@
                     <div class="footer_item">
                         <img class="w-100" src="{{ asset('frontend/img/logo/logo.png') }}" alt="Green Leaves">
                         <h2>Green Leaves Bangladesh</h2>
-                        <p>Green Leaves Bangladesh একটি জনপ্রিয় ব্র্যান্ড, যেখানে বিভিন্ন ধরনের খাদ্য পণ্য পাওয়া যায়। এখানে সাশ্রয়ী মূল্যে ভালো মানের পণ্য সরবরাহ করা হয়।</p>
+                        <p>Green Leaves Bangladesh একটি জনপ্রিয় কোম্পানি, যেখানে বিভিন্ন ধরনের খাদ্য পণ্য পাওয়া যায়। এখানে সাশ্রয়ী মূল্যে ভালো মানের পণ্য সরবরাহ করা হয়।</p>
                         <a href="https://www.facebook.com/greenleavesbd0" class="social_icon"
                             style="text-decoration:none;" target="_blank">
                             <i class="fa-brands fa-square-facebook" style="color: rgb(24, 119, 242);"></i>
