@@ -2,13 +2,13 @@
 
 @section('content')
   <!--banner start-->
-<section class="about_banner" style="  background-image: linear-gradient(rgba(2, 44, 111, 0.6), rgba(2, 44, 111, 0.6)),
-                    url('{{ asset('frontend/img/banner/about_banner.jpeg') }}');">
-  <div class="container">
-    <div class="row justify-content-center">
-     <div class="col-lg-6">
+<section class="about_banner">
+  <div class=" g-0">
+    <div class="row justify-content-center g-0">
+     <div class="">
       <div class="banner_h">
-       <h1>About</h1>
+        <img src="{{ asset('frontend/img/banner/about_banner.jpeg') }}" alt="">
+       <h1 class="d-none">About</h1>
       </div>
      </div>
     </div>

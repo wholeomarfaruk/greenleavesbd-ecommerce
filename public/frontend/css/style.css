@@ -486,9 +486,10 @@ background: linear-gradient(90deg, rgb(251, 227, 192) 50%, #198754a1 60%, rgb(25
 
 .hero-slide{
     width: 100%;
-    height: 800px;
-    background-size: cover;
-    background-position: center;
+}
+.hero-slide img{
+    width: 100%;
+    object-fit: contain;
 }
 /* banner end */
 /* our Category start */
@@ -698,21 +699,25 @@ background: linear-gradient(90deg, rgb(251, 227, 192) 50%, #198754a1 60%, rgb(25
 
 /* about_banner start */
 .about_banner{
-    background-image: linear-gradient(rgba(2, 44, 111, 0.6), rgba(2, 44, 111, 0.6)),
-                    url('../image/banner/about_banner.jpg');
-    height: 340px;
+
+    max-height: 340px;
     background-size: cover;
     background-position: center;
     display: flex;
     text-align: center;
     align-items: center;
-
+    overflow: hidden;
 }
 .banner_h{}
 .banner_h h1{
     font-size: 48px;
     font-weight: 600;
     color: var(--white);
+}
+.banner_h img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 /* about_banner end */
 /* about_company start */

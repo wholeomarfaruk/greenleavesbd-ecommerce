@@ -76,7 +76,7 @@
 }
 /* About_banner start */
 .about_banner {
-    height: 230px;
+    max-height: 230px;
 }
 .about_banner h1{
     font-size: 34px;
@@ -392,7 +392,7 @@
 }
 /* About_banner start */
 .about_banner {
-    height: 290px;
+    max-height: 290px;
 }
 .about_banner h1{
     font-size: 42px;
