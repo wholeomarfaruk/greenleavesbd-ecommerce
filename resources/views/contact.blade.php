@@ -3,16 +3,12 @@
 @section('content')
   <!--banner start-->
 <section class="about_banner" >
-  <div class="">
-    <div class="row justify-content-center">
-     <div class="">
-      <div class="banner_h">
+
+      <div class="banner_h w-100">
         <img src="{{ asset('frontend/img/banner/contact-banner.jpeg') }}" alt="Contact">
        <h1 class="d-none">Contact</h1>
       </div>
-     </div>
-    </div>
-  </div>
+
 </section>
   <!--banner end-->
 <!--contact us start-->
