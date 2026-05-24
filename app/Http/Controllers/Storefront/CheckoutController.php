@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Storefront;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CheckoutRequest;
+use App\Models\delivery_areas;
 use App\Models\Order;
 use App\Support\CartManager;
 use App\Support\OrderNumberGenerator;
@@ -26,8 +27,10 @@ class CheckoutController extends Controller
         }
 
         $bkashNumber = config('services.bkash.number');
+        $deliveryAreas = delivery_areas::orderBy('name')->get();
+        $defaultArea = $deliveryAreas->first();
 
-        return view('checkout', compact('cartData', 'bkashNumber'));
+        return view('checkout', compact('cartData', 'bkashNumber', 'deliveryAreas', 'defaultArea'));
     }
 
     public function store(CheckoutRequest $request, CartManager $cartManager): RedirectResponse
@@ -48,6 +51,9 @@ class CheckoutController extends Controller
             $paymentMethod = $validated['payment_method'];
             $paymentStatus = $paymentMethod === 'bkash' ? 'pending' : 'unpaid';
 
+            $deliveryArea = delivery_areas::find($validated['delivery_area_id']);
+            $deliveryFee = $deliveryArea ? (float) $deliveryArea->charge : 0;
+
             $order = Order::create([
                 'order_number' => OrderNumberGenerator::generate(),
                 'user_id' => auth()->id(),
@@ -58,7 +64,7 @@ class CheckoutController extends Controller
                 'phone' => $validated['phone'],
                 'email' => $validated['email'] ?? null,
                 'address' => $validated['address'],
-                'city' => $validated['city'],
+                'city' => $validated['city'] ?? null,
                 'area' => $validated['area'] ?? null,
                 'note' => $validated['order_note'] ?? null,
                 'payment_method' => $paymentMethod,
@@ -68,8 +74,9 @@ class CheckoutController extends Controller
                 'status' => 'pending',
                 'subtotal' => $cartData['subtotal'],
                 'discount' => 0,
-                'fee' => 0,
-                'total' => $cartData['subtotal'],
+                'fee' => $deliveryFee,
+                'delivery_area_id' => $deliveryArea?->id,
+                'total' => $cartData['subtotal'] + $deliveryFee,
                 'is_paid' => false,
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->userAgent(),

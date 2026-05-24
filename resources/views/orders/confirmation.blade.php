@@ -101,6 +101,10 @@
                                 <strong>৳{{ number_format((float) $order->subtotal, 2) }}</strong>
                             </div>
                             <div class="d-flex justify-content-between mb-2">
+                                <span>Delivery Fee</span>
+                                <strong>৳{{ number_format((float) $order?->fee, 2) }}</strong>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
                                 <span>Total</span>
                                 <strong>৳{{ number_format((float) $order->total, 2) }}</strong>
                             </div>

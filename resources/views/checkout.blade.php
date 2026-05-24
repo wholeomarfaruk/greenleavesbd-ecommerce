@@ -40,17 +40,6 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12">
-                                        <label for="email" class="form-label">Email (Optional)</label>
-                                        <input type="email"
-                                            id="email"
-                                            name="email"
-                                            value="{{ old('email') }}"
-                                            class="form-control @error('email') is-invalid @enderror">
-                                        @error('email')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
 
                                     <div class="col-12">
                                         <label for="address" class="form-label">Address</label>
@@ -64,38 +53,22 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <label for="city" class="form-label">City</label>
-                                        <input type="text"
-                                            id="city"
-                                            name="city"
-                                            value="{{ old('city') }}"
-                                            class="form-control @error('city') is-invalid @enderror"
-                                            required>
-                                        @error('city')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label for="area" class="form-label">Area (Optional)</label>
-                                        <input type="text"
-                                            id="area"
-                                            name="area"
-                                            value="{{ old('area') }}"
-                                            class="form-control @error('area') is-invalid @enderror">
-                                        @error('area')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
                                     <div class="col-12">
-                                        <label for="order_note" class="form-label">Order Note (Optional)</label>
-                                        <textarea id="order_note"
-                                            name="order_note"
-                                            rows="3"
-                                            class="form-control @error('order_note') is-invalid @enderror">{{ old('order_note') }}</textarea>
-                                        @error('order_note')
+                                        <label for="delivery_area_id" class="form-label">Delivery Area</label>
+                                        <select id="delivery_area_id"
+                                            name="delivery_area_id"
+                                            class="form-select @error('delivery_area_id') is-invalid @enderror"
+                                            required>
+                                            @foreach($deliveryAreas as $area)
+                                                <option
+                                                    value="{{ $area->id }}"
+                                                    data-charge="{{ $area->charge }}"
+                                                    {{ old('delivery_area_id', $defaultArea?->id) == $area->id ? 'selected' : '' }}>
+                                                    {{ $area->name }} — ৳{{ number_format($area->charge, 2) }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('delivery_area_id')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -195,9 +168,13 @@
                                     <span>Subtotal</span>
                                     <strong data-checkout-subtotal>৳{{ number_format($cartData['subtotal'], 2) }}</strong>
                                 </div>
-                                <div class="d-flex justify-content-between">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Delivery Fee</span>
+                                    <strong data-checkout-delivery-fee>৳{{ number_format($defaultArea?->charge ?? 0, 2) }}</strong>
+                                </div>
+                                <div class="d-flex justify-content-between border-top pt-2">
                                     <span>Total</span>
-                                    <strong data-checkout-total>৳{{ number_format($cartData['subtotal'], 2) }}</strong>
+                                    <strong data-checkout-total>৳{{ number_format($cartData['subtotal'] + ($defaultArea?->charge), 2) }}</strong>
                                 </div>
                             </div>
                         </div>
@@ -211,6 +188,7 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // bKash toggle
             const paymentInputs = document.querySelectorAll('input[name="payment_method"]');
             const bkashCard = document.getElementById('bkash-instructions-card');
 
@@ -224,6 +202,26 @@
             });
 
             toggleBkashInstructions();
+
+            // Delivery area fee calculation
+            const subtotal = {{ (float) $cartData['subtotal'] }};
+            const areaSelect = document.getElementById('delivery_area_id');
+            const feeEl = document.querySelector('[data-checkout-delivery-fee]');
+            const totalEl = document.querySelector('[data-checkout-total]');
+
+            const formatCurrency = (amount) => '৳' + amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+            const updateTotals = () => {
+                const selectedOption = areaSelect.options[areaSelect.selectedIndex];
+                const charge = parseFloat(selectedOption?.dataset.charge) || 0;
+
+                if (feeEl) feeEl.textContent = formatCurrency(charge);
+                if (totalEl) totalEl.textContent = formatCurrency(subtotal + charge);
+            };
+
+            areaSelect?.addEventListener('change', updateTotals);
+            updateTotals();
+       
         });
     </script>
 @endpush

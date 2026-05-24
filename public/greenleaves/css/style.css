@@ -338,9 +338,7 @@ body{
 
 /* about_banner start */
 .about_banner{
-    background-image: linear-gradient(rgba(2, 44, 111, 0.6), rgba(2, 44, 111, 0.6)),
-                    url('../image/banner/about_banner.jpg');
-    height: 340px;
+
     background-size: cover;
     background-position: center;
     display: flex;

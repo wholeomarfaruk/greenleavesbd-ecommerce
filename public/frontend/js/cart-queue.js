@@ -322,8 +322,20 @@
                 `).join('');
             }
 
-            document.querySelectorAll('[data-checkout-subtotal], [data-checkout-total]').forEach((element) => {
+            document.querySelectorAll('[data-checkout-subtotal]').forEach((element) => {
                 element.textContent = this.formatMoney(payload.subtotal || 0);
+            });
+
+            const areaSelect = document.getElementById('delivery_area_id');
+            const selectedOption = areaSelect?.options[areaSelect.selectedIndex];
+            const deliveryCharge = parseFloat(selectedOption?.dataset.charge) || 0;
+
+            document.querySelectorAll('[data-checkout-delivery-fee]').forEach((element) => {
+                element.textContent = this.formatMoney(deliveryCharge);
+            });
+
+            document.querySelectorAll('[data-checkout-total]').forEach((element) => {
+                element.textContent = this.formatMoney((payload.subtotal || 0) + deliveryCharge);
             });
 
             const placeOrderButton = document.querySelector('[data-place-order-button]');
