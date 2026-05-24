@@ -700,7 +700,6 @@ background: linear-gradient(90deg, rgb(251, 227, 192) 50%, #198754a1 60%, rgb(25
 /* about_banner start */
 .about_banner{
 
-    max-height: 340px;
     background-size: cover;
     background-position: center;
     display: flex;
