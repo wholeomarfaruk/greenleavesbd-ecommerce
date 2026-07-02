@@ -102,7 +102,9 @@
             color: var(--text-primary-color);
         }
 
-        .p-card-1 .p-btn-group {}
+        .p-card-1 .p-btn-group {
+
+        }
 
         .p-card-1 .p-btn-group .btn {}
 
@@ -110,6 +112,9 @@
             .sec-style-1 .sec-body .sec-grid-box {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
+              .p-card-1 .p-btn-group {
+                flex-direction: column;
+        }
 
             .p-card-1 .p-img-box img {
 
