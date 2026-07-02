@@ -28,7 +28,7 @@
     </style>
 
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css?v=1.0.9') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/css/media.css?v=1.0.5') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/media.css?v=1.0.6') }}">
 
     @stack('styles')
 
