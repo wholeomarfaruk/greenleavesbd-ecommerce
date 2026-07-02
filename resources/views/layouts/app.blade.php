@@ -52,7 +52,7 @@
         </div>
 
         <div class="container-fluid bg-white px-0 middle-navbar">
-            <nav class="navbar navbar-expand-lg">
+            <nav class="navbar navbar-expand-lg py-0">
                 <div class="container">
                     <a class="navbar-brand logo" href="/">
                         <img src="{{ asset('frontend/img/logo/logo.png') }}" class="w-100" alt="Green Leave">
@@ -84,7 +84,7 @@
         </div>
 
         <div class="container-fluid px-0">
-            <nav class="navbar navbar-expand-lg nav">
+            <nav class="navbar navbar-expand-lg nav py-0">
                 <div class="container">
                     <div class="collapse navbar-collapse menu" id="nav_c">
                         <ul class="navbar-nav">
