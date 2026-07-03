@@ -270,12 +270,18 @@ body {
 .p-card-1 .p-img-box {
     overflow: hidden;
     border-radius: 8px;
+     aspect-ratio: 1 / 1;
+}
+.product-image{
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
 }
 
+
 .p-card-1 .p-img-box img {
-    width: 100%;
-    height: 450px;
-    object-fit: cover;
+   width: 100%;
+    height: 100%;
+    object-fit: cover; /* Fill + Crop */
     border-radius: 8px;
     transition: all 0.2s ease-in-out;
 }
@@ -330,11 +336,11 @@ body {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .p-card-1 .p-img-box img {
+    /* .p-card-1 .p-img-box img {
 
         height: 250px;
 
-    }
+    } */
 }
 
 /* Product section End*/
