@@ -272,10 +272,6 @@ body {
     border-radius: 8px;
      aspect-ratio: 1 / 1;
 }
-.product-image{
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-}
 
 
 .p-card-1 .p-img-box img {

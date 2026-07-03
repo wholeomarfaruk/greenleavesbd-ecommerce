@@ -46,14 +46,14 @@
         .p-card-1 .p-img-box {
             overflow: hidden;
             border-radius: 8px;
-
+     aspect-ratio: 1 / 1;
 
         }
 
         .p-card-1 .p-img-box img {
-            width: 100%;
-            height: 312px;
-            object-fit: cover;
+   width: 100%;
+    height: 100%;
+    object-fit: cover; /* Fill + Crop */
             border-radius: 8px;
             transition: all 0.2s ease-in-out;
 
@@ -112,11 +112,11 @@
  .p-card-1 .p-btn-group {
                 flex-direction: column;
         }
-            .p-card-1 .p-img-box img {
+            /* .p-card-1 .p-img-box img {
 
                 height: 250px;
 
-            }
+            } */
         }
     </style>
 @endpush
